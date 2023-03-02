@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 export const ThankYou = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Home');
+      navigation.navigate('LogIn');
     }, 5000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
