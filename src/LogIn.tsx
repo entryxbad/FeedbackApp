@@ -13,12 +13,10 @@ const LogIn = ({navigation}) => {
       <Text style={styles.headerText}>Войдите в учётную запись</Text>
       <TextInput style={styles.input} placeholder="Логин"></TextInput>
       <TextInput style={styles.input} placeholder="Пароль"></TextInput>
-      <TouchableOpacity style={styles.button}>
-        <Text
-          style={styles.buttonText}
-          onPress={() => navigation.navigate('Home')}>
-          Войти
-        </Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.buttonText}>Войти</Text>
       </TouchableOpacity>
     </View>
   );
