@@ -1,6 +1,28 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 import {StyleSheet} from 'react-native';
+import {AuthContext} from './context/AuthContext';
+
+const {logout} = useContext(AuthContext);
+
+export const Home = ({navigation}) => {
+  return (
+    <View style={styles.wrapper}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Questions')}>
+        <Text style={styles.title}>Начать опрос</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          logout();
+        }}>
+        <Text style={styles.title}>Выход</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -20,6 +42,7 @@ const styles = StyleSheet.create({
     width: '75%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 5,
   },
   title: {
     fontSize: 25,
@@ -27,15 +50,3 @@ const styles = StyleSheet.create({
     color: '#ffff',
   },
 });
-
-export const Home = ({navigation}) => {
-  return (
-    <View style={styles.wrapper}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Questions')}>
-        <Text style={styles.title}>Начать опрос</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};

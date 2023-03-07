@@ -5,11 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import MaskInput from 'react-native-mask-input';
+import {AuthContext} from './context/AuthContext';
 
 export const LogIn = ({navigation}) => {
   const [phone, setPhone] = useState('');
+  const {login} = useContext(AuthContext);
 
   return (
     <View style={styles.wrapper}>
@@ -48,9 +50,12 @@ export const LogIn = ({navigation}) => {
         style={styles.input}
         secureTextEntry={true}
         placeholder="Пароль"></TextInput>
+
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Home')}>
+        onPress={() => {
+          login();
+        }}>
         <Text style={styles.buttonText}>Войти</Text>
       </TouchableOpacity>
     </View>
