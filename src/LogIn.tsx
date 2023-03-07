@@ -8,7 +8,7 @@ import {
 import React, {useState} from 'react';
 import MaskInput from 'react-native-mask-input';
 
-const LogIn = ({navigation}) => {
+export const LogIn = ({navigation}) => {
   const [phone, setPhone] = useState('');
 
   return (
@@ -56,8 +56,6 @@ const LogIn = ({navigation}) => {
     </View>
   );
 };
-
-export default LogIn;
 
 const styles = StyleSheet.create({
   wrapper: {
