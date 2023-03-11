@@ -9,7 +9,7 @@ import React, {useState, useContext} from 'react';
 import MaskInput from 'react-native-mask-input';
 import {AuthContext} from './context/AuthContext';
 
-export const LogIn = ({navigation}) => {
+export const LogIn = () => {
   const [phone, setPhone] = useState('');
   const {login} = useContext(AuthContext);
 
