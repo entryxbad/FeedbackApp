@@ -44,7 +44,9 @@ export const fakeSend = (answers) => {
 };
 
 const fetchQuestion = () => {
-  return fetch(questionUrl).then((response) => response.json());
+  return fetch(questionUrl, {
+    headers: {authorization: 'Bearer: some super random secure token'},
+  }).then((response) => response.json());
 };
 
 // const fakeRequest = () => {

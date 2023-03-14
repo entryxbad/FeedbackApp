@@ -18,7 +18,9 @@ export const LogIn = () => {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.headerText}>Войдите в учётную запись</Text>
-      <MaskInput
+      <TextInput style={styles.input} placeholder="Пароль"></TextInput>
+
+      {/* <MaskInput
         style={styles.input}
         value={phone}
         placeholder="Логин"
@@ -46,18 +48,14 @@ export const LogIn = () => {
           /\d/,
           /\d/,
         ]}
-      />
+      /> */}
 
       <TextInput
         style={styles.input}
         secureTextEntry={true}
         placeholder="Пароль"></TextInput>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          login();
-        }}>
+      <TouchableOpacity style={styles.button} onPress={login}>
         <Text style={styles.buttonText}>Войти</Text>
       </TouchableOpacity>
     </View>

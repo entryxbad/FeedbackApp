@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext, useState, useEffect} from 'react';
+import {authUrl} from '../constants/Constants';
 
 export const AuthContext = createContext();
 
@@ -9,6 +10,23 @@ export const AuthProvider = ({children}) => {
 
   const login = () => {
     setIsLoading(true);
+    fetch(authUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        username: 'test',
+        password: 'test',
+      }),
+    })
+      .then((response) =>
+        response.json().then((response) => console.log('RESPONSE:', response)),
+      )
+      .catch((error) => {
+        console.log('AuthError:', error);
+      });
     setUserToken('qwerty');
     AsyncStorage.setItem('userToken', 'qwerty'); //userToken
     setIsLoading(false);
