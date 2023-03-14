@@ -1,11 +1,17 @@
 import React, {useContext} from 'react';
-import {TouchableOpacity, View, Text} from 'react-native';
-import {StyleSheet} from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  useWindowDimensions,
+} from 'react-native';
 import {AuthContext} from './context/AuthContext';
 
-const {logout} = useContext(AuthContext);
-
 export const Home = ({navigation}) => {
+  const {logout} = useContext(AuthContext);
+  const {styles} = useStyle();
+
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity
@@ -24,29 +30,33 @@ export const Home = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  wrapper: {
-    display: 'flex',
-    backgroundColor: '#112e80',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    padding: 5,
-  },
-  button: {
-    backgroundColor: '#456ede',
-    borderWidth: 2,
-    borderRadius: 5,
-    borderColor: '#afbbdb',
-    width: '75%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 5,
-  },
-  title: {
-    fontSize: 25,
-    padding: 10,
-    color: '#ffff',
-  },
-});
+const useStyle = () => {
+  const {height, width} = useWindowDimensions();
+  const styles = StyleSheet.create({
+    wrapper: {
+      display: 'flex',
+      backgroundColor: '#112e80',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: width,
+      height: height,
+      padding: 5,
+    },
+    button: {
+      backgroundColor: '#456ede',
+      borderWidth: 2,
+      borderRadius: width * 0.01,
+      borderColor: '#afbbdb',
+      width: width * 0.5,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 5,
+    },
+    title: {
+      fontSize: width * 0.02,
+      padding: 10,
+      color: '#ffff',
+    },
+  });
+  return {styles};
+};

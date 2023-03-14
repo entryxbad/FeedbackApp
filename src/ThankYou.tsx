@@ -1,24 +1,9 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-
-const styles = StyleSheet.create({
-  wrapper: {
-    display: 'flex',
-    backgroundColor: '#112e80',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    padding: 5,
-  },
-  title: {
-    fontSize: 25,
-    padding: 10,
-    color: '#ffff',
-  },
-});
+import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 
 export const ThankYou = ({navigation}) => {
+  const {styles} = useStyle();
+
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Home');
@@ -31,4 +16,26 @@ export const ThankYou = ({navigation}) => {
       <Text style={styles.title}>Спасибо за ваши ответы!</Text>
     </View>
   );
+};
+
+const useStyle = () => {
+  const {width, height} = useWindowDimensions();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      display: 'flex',
+      backgroundColor: '#112e80',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: width,
+      height: height,
+      padding: 5,
+    },
+    title: {
+      fontSize: width * 0.023,
+      padding: 10,
+      color: '#ffff',
+    },
+  });
+  return {styles};
 };

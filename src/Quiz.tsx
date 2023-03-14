@@ -5,53 +5,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  useWindowDimensions,
 } from 'react-native';
 
 import {useQuiz} from './hooks';
 
-const styles = StyleSheet.create({
-  wrapper: {
-    display: 'flex',
-    backgroundColor: '#112e80',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    padding: 5,
-  },
-  title: {
-    padding: 20,
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: '#BEBEBE',
-    borderRadius: 5,
-    marginBottom: 24,
-    fontSize: 25,
-    color: '#ffff',
-  },
-  option: {
-    padding: 8,
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: '#BEBEBE',
-    borderRadius: 5,
-    marginBottom: 15,
-    backgroundColor: '#20356e',
-  },
-  questions: {
-    color: '#ffff',
-    fontSize: 20,
-  },
-  loadTitle: {
-    fontSize: 25,
-    padding: 10,
-    color: '#ffff',
-  },
-});
-
 export const Quiz = ({navigation}) => {
+  const {styles} = useStyle();
   const [data, loading, error, append] = useQuiz();
-
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
 
@@ -108,4 +69,49 @@ export const Quiz = ({navigation}) => {
       </View>
     </View>
   );
+};
+
+const useStyle = () => {
+  const {height, width} = useWindowDimensions();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      display: 'flex',
+      backgroundColor: '#112e80',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: width,
+      height: height,
+      padding: 5,
+    },
+    title: {
+      padding: 20,
+      textAlign: 'center',
+      borderWidth: width * 0.001,
+      borderColor: '#BEBEBE',
+      borderRadius: width * 0.01,
+      marginBottom: 24,
+      fontSize: width * 0.023,
+      color: '#ffff',
+    },
+    option: {
+      padding: 8,
+      textAlign: 'center',
+      borderWidth: width * 0.001,
+      borderColor: '#BEBEBE',
+      borderRadius: width * 0.01,
+      marginBottom: 15,
+      backgroundColor: '#20356e',
+    },
+    questions: {
+      color: '#ffff',
+      fontSize: width * 0.02,
+    },
+    loadTitle: {
+      fontSize: width * 0.02,
+      padding: 10,
+      color: '#ffff',
+    },
+  });
+  return {styles};
 };
