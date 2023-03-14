@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {questionUrl} from './constants/Constants';
 
 const mock = [
   {
@@ -42,13 +43,17 @@ export const fakeSend = (answers) => {
   });
 };
 
-const fakeRequest = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mock);
-    }, 2000);
-  });
+const fetchQuestion = () => {
+  return fetch(questionUrl).then((response) => response.json());
 };
+
+// const fakeRequest = () => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(mock);
+//     }, 2000);
+//   });
+// };
 
 const fakeError = () => {
   return new Promise((_, reject) => {
@@ -146,8 +151,9 @@ export const useQuiz = () => {
 
   const getQuestions = () => {
     setLoading(true);
-    return fakeRequest()
+    return fetchQuestion()
       .then((response) => {
+        console.log('AuthError:', response);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setData(response);
