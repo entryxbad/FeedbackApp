@@ -95,6 +95,7 @@ const useStyle = () => {
       color: '#ffff',
     },
     option: {
+      width: width * 0.7,
       padding: 8,
       textAlign: 'center',
       borderWidth: width * 0.001,
