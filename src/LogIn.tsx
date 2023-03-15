@@ -17,23 +17,26 @@ export const LogIn = () => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
 
+  const handleChange = (masked, text) => {
+    setPhone(masked);
+    setUsername(text);
+  };
+
   return (
     <View style={styles.wrapper}>
       <Text style={styles.headerText}>Войдите в учётную запись</Text>
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         placeholder="Логин"
         value={username}
-        onChangeText={(text) => setUsername(text)}></TextInput>
+        onChangeText={(text) => setUsername(text)}></TextInput> */}
 
-      {/* <MaskInput
+      <MaskInput
         style={styles.input}
         value={phone}
         placeholder="Логин"
         keyboardType="numeric"
-        onChangeText={(masked) => {
-          setPhone(masked);
-        }}
+        onChangeText={handleChange}
         mask={[
           '+',
           '7',
@@ -54,7 +57,7 @@ export const LogIn = () => {
           /\d/,
           /\d/,
         ]}
-      /> */}
+      />
 
       <TextInput
         style={styles.input}

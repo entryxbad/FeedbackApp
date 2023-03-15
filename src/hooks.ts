@@ -2,38 +2,38 @@ import {useEffect, useRef, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {questionUrl} from './constants/Constants';
 
-const mock = [
-  {
-    id: 1,
-    title: 'Часто ли вы посещаете наше заведение?',
-    options: [
-      {id: 4, title: 'Ответ 1 вопроса 1'},
-      {id: 5, title: 'Ответ 2 вопроса 1'},
-      {id: 6, title: 'Ответ 3 вопроса 1'},
-      {id: 7, title: 'Ответ 4 вопроса 1'},
-    ],
-  },
-  {
-    id: 2,
-    title: 'Понравилась ли вам еда?',
-    options: [
-      {id: 8, title: 'Ответ 1 вопроса 2'},
-      {id: 9, title: 'Ответ 2 вопроса 2'},
-      {id: 10, title: 'Ответ 3 вопроса 2'},
-      {id: 11, title: 'Ответ 4 вопроса 2'},
-    ],
-  },
-  {
-    id: 3,
-    title: 'Придете ли вы еще?',
-    options: [
-      {id: 12, title: 'Ответ 1 вопроса 3'},
-      {id: 13, title: 'Ответ 2 вопроса 3'},
-      {id: 14, title: 'Ответ 3 вопроса 3'},
-      {id: 15, title: 'Ответ 4 вопроса 3'},
-    ],
-  },
-];
+// const mock = [
+//   {
+//     id: 1,
+//     title: 'Часто ли вы посещаете наше заведение?',
+//     options: [
+//       {id: 4, title: 'Ответ 1 вопроса 1'},
+//       {id: 5, title: 'Ответ 2 вопроса 1'},
+//       {id: 6, title: 'Ответ 3 вопроса 1'},
+//       {id: 7, title: 'Ответ 4 вопроса 1'},
+//     ],
+//   },
+//   {
+//     id: 2,
+//     title: 'Понравилась ли вам еда?',
+//     options: [
+//       {id: 8, title: 'Ответ 1 вопроса 2'},
+//       {id: 9, title: 'Ответ 2 вопроса 2'},
+//       {id: 10, title: 'Ответ 3 вопроса 2'},
+//       {id: 11, title: 'Ответ 4 вопроса 2'},
+//     ],
+//   },
+//   {
+//     id: 3,
+//     title: 'Придете ли вы еще?',
+//     options: [
+//       {id: 12, title: 'Ответ 1 вопроса 3'},
+//       {id: 13, title: 'Ответ 2 вопроса 3'},
+//       {id: 14, title: 'Ответ 3 вопроса 3'},
+//       {id: 15, title: 'Ответ 4 вопроса 3'},
+//     ],
+//   },
+// ];
 
 export const fakeSend = (answers) => {
   return new Promise((resolve) => {
@@ -43,9 +43,10 @@ export const fakeSend = (answers) => {
   });
 };
 
-const fetchQuestion = () => {
+const fetchQuestion = async () => {
+  let token = await AsyncStorage.getItem('userToken');
   return fetch(questionUrl, {
-    headers: {authorization: 'Bearer: some super random secure token'},
+    headers: {authorization: `Bearer: ${token}`},
   }).then((response) => response.json());
 };
 
