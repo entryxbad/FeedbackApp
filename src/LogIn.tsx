@@ -14,11 +14,17 @@ export const LogIn = () => {
   const {styles} = useStyle();
   const [phone, setPhone] = useState('');
   const {login} = useContext(AuthContext);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
 
   return (
     <View style={styles.wrapper}>
       <Text style={styles.headerText}>Войдите в учётную запись</Text>
-      <TextInput style={styles.input} placeholder="Пароль"></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Логин"
+        value={username}
+        onChangeText={(text) => setUsername(text)}></TextInput>
 
       {/* <MaskInput
         style={styles.input}
@@ -53,9 +59,15 @@ export const LogIn = () => {
       <TextInput
         style={styles.input}
         secureTextEntry={true}
-        placeholder="Пароль"></TextInput>
+        placeholder="Пароль"
+        value={password}
+        onChangeText={(text) => setPassword(text)}></TextInput>
 
-      <TouchableOpacity style={styles.button} onPress={login}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          login(username, password);
+        }}>
         <Text style={styles.buttonText}>Войти</Text>
       </TouchableOpacity>
     </View>

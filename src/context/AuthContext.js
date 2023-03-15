@@ -8,7 +8,7 @@ export const AuthProvider = ({children}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
 
-  const login = () => {
+  const login = (username, password) => {
     setIsLoading(true);
     fetch(authUrl, {
       method: 'POST',
@@ -17,18 +17,19 @@ export const AuthProvider = ({children}) => {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        username: 'test',
-        password: 'test',
+        username,
+        password,
       }),
     })
-      .then((response) =>
-        response.json().then((response) => console.log('RESPONSE:', response)),
-      )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('USER_TOKEN:', data.jwt),
+          setUserToken(data.jwt),
+          AsyncStorage.setItem('userToken', data.jwt);
+      })
       .catch((error) => {
-        console.log('AuthError:', error);
+        console.log('LoginError:', error);
       });
-    setUserToken('qwerty');
-    AsyncStorage.setItem('userToken', 'qwerty'); //userToken
     setIsLoading(false);
   };
 
