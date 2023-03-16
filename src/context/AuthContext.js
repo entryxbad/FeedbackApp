@@ -24,7 +24,7 @@ export const AuthProvider = ({children}) => {
         password,
       })
       .then((response) => {
-        console.log(response.data.jwt);
+        console.log(`RESPONSE: ${response.data.jwt}`);
         if (response.data.jwt !== undefined) {
           setUserToken(response.data.jwt);
           AsyncStorage.setItem('userToken', response.data.jwt);
