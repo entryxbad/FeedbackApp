@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import React, {createContext, useState, useEffect} from 'react';
+import {Alert} from 'react-native';
 import {authUrl} from '../constants/Constants';
 
 export const AuthContext = createContext();
@@ -8,29 +10,33 @@ export const AuthProvider = ({children}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
 
+  const errorAlert = () => {
+    Alert.alert('Неверный логин или пароль');
+  };
+
   const login = (username, password) => {
-    setIsLoading(true);
-    fetch(authUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
+    axios
+      .post(`${authUrl}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
         username,
         password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('USER_TOKEN:', data.jwt),
-          setUserToken(data.jwt),
-          AsyncStorage.setItem('userToken', data.jwt);
+      })
+      .then((response) => {
+        console.log(response.data.jwt);
+        if (response.data.jwt !== undefined) {
+          setUserToken(response.data.jwt);
+          AsyncStorage.setItem('userToken', response.data.jwt);
+        }
       })
       .catch((error) => {
-        console.log('LoginError:', error);
+        console.log(`Login error ${error}`);
+        errorAlert();
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-    setIsLoading(false);
   };
 
   const logout = () => {
