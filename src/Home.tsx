@@ -14,18 +14,22 @@ export const Home = ({navigation}) => {
 
   return (
     <View style={styles.wrapper}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Questions')}>
-        <Text style={styles.title}>Начать опрос</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          logout();
-        }}>
-        <Text style={styles.title}>Выход</Text>
-      </TouchableOpacity>
+      <View style={styles.block}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Questions')}>
+          <Text style={styles.title}>Начать опрос</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.block}>
+        <TouchableOpacity
+          style={styles.buttonExit}
+          onPress={() => {
+            logout();
+          }}>
+          <Text style={styles.title}>Выйти из аккаунта</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -52,10 +56,23 @@ const useStyle = () => {
       justifyContent: 'center',
       marginTop: 5,
     },
+    buttonExit: {
+      backgroundColor: '#B00000',
+      borderWidth: 2,
+      borderRadius: width * 0.01,
+      borderColor: '#afbbdb',
+      width: width * 0.3,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 5,
+    },
     title: {
       fontSize: width * 0.02,
       padding: 10,
       color: '#ffff',
+    },
+    block: {
+      paddingTop: width * 0.2,
     },
   });
   return {styles};
