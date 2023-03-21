@@ -23,16 +23,18 @@ export const Home = ({navigation}) => {
       </View>
       <View style={styles.block}>
         <TouchableOpacity
-          style={styles.buttonExit}
-          onPress={() => {
-            logout();
-          }}>
+          onPress={() => navigation.navigate('Logout')}
+          style={styles.buttonExit}>
           <Text style={styles.title}>Выйти из аккаунта</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+
+// onPress={() => { Выйти из аккаунта
+//   logout();
+// }}
 
 const useStyle = () => {
   const {height, width} = useWindowDimensions();
