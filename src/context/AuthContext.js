@@ -16,13 +16,18 @@ export const AuthProvider = ({children}) => {
 
   const login = (username, password) => {
     axios
-      .post(`${authUrl}`, {
-        headers: {
-          'Content-Type': 'application/json',
+      .post(
+        `${authUrl}`,
+        {
+          username,
+          password,
         },
-        username,
-        password,
-      })
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
       .then((response) => {
         console.log(`RESPONSE: ${response.data.jwt}`);
         if (response.data.jwt !== undefined) {
