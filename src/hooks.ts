@@ -35,35 +35,19 @@ import {questionUrl} from './constants/Constants';
 //   },
 // ];
 
-export const fakeSend = (answers) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(answers);
-    }, 2000);
-  });
-};
+// {
+//   headers: {authorization: `Bearer: ${token}`},
+// }
+//let token = await AsyncStorage.getItem('userToken');
 
 const fetchQuestion = async () => {
-  let token = await AsyncStorage.getItem('userToken');
   return fetch(questionUrl, {
-    headers: {authorization: `Bearer: ${token}`},
-  }).then((response) => response.json());
-};
-
-// const fakeRequest = () => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(mock);
-//     }, 2000);
-//   });
-// };
-
-const fakeError = () => {
-  return new Promise((_, reject) => {
-    setTimeout(() => {
-      reject('Connection error');
-    }, 2000);
-  });
+    headers: {'Content-Type': 'application/json'},
+  })
+    .then((response) => {
+      return response.json().then((data) => console.log('Hooks data', data));
+    })
+    .catch((error) => console.log('Hooks error:', error));
 };
 
 export const ANSWERS_STORAGE_KEY = 'pending-answers';
@@ -156,7 +140,7 @@ export const useQuiz = () => {
     setLoading(true);
     return fetchQuestion()
       .then((response) => {
-        console.log('AuthError:', response);
+        console.log('Response from server:', response);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setData(response);

@@ -15,39 +15,42 @@ export const AuthProvider = ({children}) => {
   };
 
   const login = (username, password) => {
-    axios
-      .post(
-        `${authUrl}`,
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .then((response) => {
-        console.log(`RESPONSE: ${response.data.jwt}`);
-        if (response.data.jwt !== undefined) {
-          setUserToken(response.data.jwt);
-          AsyncStorage.setItem('userToken', response.data.jwt);
-        }
-      })
-      .catch((error) => {
-        console.log(`Login error ${error}`);
-        errorAlert();
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    setUserToken('some super random secure token');
+    setIsLoading(false);
+
+    // axios
+    //   .post(
+    //     `${authUrl}`,
+    //     {
+    //       username,
+    //       password,
+    //     },
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     },
+    //   )
+    //   .then((response) => {
+    //     console.log(`RESPONSE: ${response.data.jwt}`);
+    //     if (response.data.jwt !== undefined) {
+    //       setUserToken(response.data.jwt);
+    //       AsyncStorage.setItem('userToken', response.data.jwt);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(`Login error ${error}`);
+    //     errorAlert();
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   };
 
   const logout = () => {
     setIsLoading(true);
     setUserToken(null);
-    AsyncStorage.removeItem('userToken');
+    // AsyncStorage.removeItem('userToken');
     setIsLoading(false);
   };
 

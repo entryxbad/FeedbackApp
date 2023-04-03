@@ -70,6 +70,22 @@ export const Quiz = ({navigation}) => {
     </View>
   );
 };
+//   return (
+//     <View style={styles.wrapper}>
+//       <View>
+//         <Text style={styles.title}>{currentQuestion.text1}</Text>
+//         {currentQuestion.options.map((option) => (
+//           <TouchableOpacity
+//             key={option.id}
+//             style={styles.option}
+//             onPress={() => handleAnswer(option)}>
+//             <Text style={styles.questions}>{option.title}</Text>
+//           </TouchableOpacity>
+//         ))}
+//       </View>
+//     </View>
+//   );
+// };
 
 const useStyle = () => {
   const {height, width} = useWindowDimensions();
