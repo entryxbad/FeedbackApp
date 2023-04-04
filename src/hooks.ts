@@ -40,14 +40,16 @@ import {questionUrl} from './constants/Constants';
 // }
 //let token = await AsyncStorage.getItem('userToken');
 
-const fetchQuestion = async () => {
-  return fetch(questionUrl, {
-    headers: {'Content-Type': 'application/json'},
-  })
-    .then((response) => {
-      return response.json().then((data) => console.log('Hooks data', data));
-    })
-    .catch((error) => console.log('Hooks error:', error));
+// const fetchQuestion = async () => {
+//   return fetch(questionUrl)
+//     .then((response) => {
+//       return response.json().then((data) => console.log('Hooks data', data));
+//     })
+//     .catch((error) => console.log('Hooks error:', error));
+// };
+
+const fetchQuestion = () => {
+  return fetch(questionUrl).then((response) => response.json());
 };
 
 export const ANSWERS_STORAGE_KEY = 'pending-answers';
