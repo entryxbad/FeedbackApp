@@ -69,7 +69,7 @@ const useStyle = () => {
       marginTop: 5,
     },
     title: {
-      fontSize: width * 0.02,
+      fontSize: width * 0.028,
       padding: 10,
       color: '#ffff',
     },

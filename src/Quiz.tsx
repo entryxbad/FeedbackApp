@@ -107,11 +107,11 @@ const useStyle = () => {
       borderColor: '#BEBEBE',
       borderRadius: width * 0.01,
       marginBottom: 24,
-      fontSize: width * 0.023,
+      fontSize: width * 0.028,
       color: '#ffff',
     },
     option: {
-      width: width * 0.7,
+      width: width * 0.8,
       padding: 8,
       textAlign: 'center',
       borderWidth: width * 0.001,
@@ -122,7 +122,7 @@ const useStyle = () => {
     },
     questions: {
       color: '#ffff',
-      fontSize: width * 0.02,
+      fontSize: width * 0.028,
     },
     loadTitle: {
       fontSize: width * 0.02,

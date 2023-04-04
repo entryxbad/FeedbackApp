@@ -31,6 +31,7 @@ export const Logout = ({navigation}) => {
         style={styles.input}
         secureTextEntry={true}
         placeholder="Введите пароль"
+        autoCapitalize="none"
         value={password}
         onChangeText={setPassword}></TextInput>
       <TouchableOpacity style={styles.buttonExit} onPress={handleLogout}>
@@ -58,11 +59,11 @@ const useStyle = () => {
     },
     headerText: {
       color: '#fff',
-      fontSize: width * 0.023,
+      fontSize: width * 0.05,
     },
     input: {
       backgroundColor: '#fff',
-      width: width * 0.3,
+      width: width * 0.4,
       borderRadius: width * 0.01,
       marginTop: 30,
       padding: 10,
@@ -72,7 +73,7 @@ const useStyle = () => {
       borderWidth: 2,
       borderRadius: width * 0.01,
       borderColor: '#afbbdb',
-      width: width * 0.3,
+      width: width * 0.4,
       padding: 10,
       marginTop: 30,
       alignItems: 'center',
@@ -82,7 +83,7 @@ const useStyle = () => {
       borderWidth: 2,
       borderRadius: width * 0.01,
       borderColor: '#afbbdb',
-      width: width * 0.3,
+      width: width * 0.4,
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 30,
@@ -90,7 +91,7 @@ const useStyle = () => {
     },
     buttonText: {
       color: '#fff',
-      fontSize: width * 0.02,
+      fontSize: width * 0.028,
     },
   });
   return {styles};

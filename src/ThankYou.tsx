@@ -32,7 +32,7 @@ const useStyle = () => {
       padding: 5,
     },
     title: {
-      fontSize: width * 0.023,
+      fontSize: width * 0.028,
       padding: 10,
       color: '#ffff',
     },
