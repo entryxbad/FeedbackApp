@@ -2,6 +2,19 @@ import {useEffect, useRef, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {questionUrl} from './constants/Constants';
 
+const mapData = (payload) =>
+  payload
+    .split('\n')
+    .map((v) => v.trim())
+    .filter((v) => !v.includes('undefined') && !!v)
+    .map((v) => {
+      const [title, variants] = v.split(';');
+      const options = variants
+        .split(',')
+        .map((v, index) => ({title: v.trim(), id: index}));
+      return {title, options};
+    });
+
 // const mock = [
 //   {
 //     id: 1,
@@ -145,7 +158,7 @@ export const useQuiz = () => {
         console.log('Response from server:', response);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        setData(response);
+        setData(mapData(response));
         return response;
       })
       .catch((error) => {
