@@ -27,7 +27,7 @@ export const Home = ({ navigation }) => {
           onPress={() => navigation.navigate('Logout')}
           style={styles.buttonExit}
         >
-          <Text style={styles.title}>Выйти из аккаунта</Text>
+          <Text style={styles.titleExit}>Выйти из аккаунта</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -43,7 +43,7 @@ const useStyle = () => {
   const styles = StyleSheet.create({
     wrapper: {
       display: 'flex',
-      backgroundColor: '#112e80',
+      backgroundColor: '#fff',
       justifyContent: 'center',
       alignItems: 'center',
       width: width,
@@ -51,29 +51,32 @@ const useStyle = () => {
       padding: 5
     },
     button: {
-      backgroundColor: '#456ede',
-      borderWidth: 2,
+      backgroundColor: '#008C8C',
       borderRadius: width * 0.01,
-      borderColor: '#afbbdb',
       width: width * 0.5,
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 5
     },
     buttonExit: {
-      backgroundColor: '#B00000',
-      borderWidth: 2,
       borderRadius: width * 0.01,
-      borderColor: '#afbbdb',
+      borderWidth: width * 0.002,
+      borderColor: '#008C8C',
       width: width * 0.3,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 5
+      marginTop: 5,
+      color: 'black'
     },
     title: {
       fontSize: width * 0.028,
       padding: 10,
       color: '#ffff'
+    },
+    titleExit: {
+      fontSize: width * 0.028,
+      padding: 10,
+      color: '#008C8C'
     },
     block: {
       paddingTop: width * 0.2

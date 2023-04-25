@@ -91,29 +91,28 @@ const useStyle = () => {
     wrapper: {
       height: height,
       width: width,
-      backgroundColor: '#112e80',
+      backgroundColor: '#fff',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
     },
     headerText: {
-      color: '#fff',
+      color: '#000',
       fontSize: width * 0.05
     },
     input: {
-      backgroundColor: '#fff',
       width: width * 0.4,
       height: height * 0.08,
+      borderWidth: 2,
       borderRadius: width * 0.01,
+      borderColor: '#B3B3B3',
       marginTop: 30,
       padding: 10,
       fontSize: width * 0.015
     },
     button: {
-      backgroundColor: '#456ede',
-      borderWidth: 2,
+      backgroundColor: '#008C8C',
       borderRadius: width * 0.01,
-      borderColor: '#afbbdb',
       width: width * 0.4,
       padding: 10,
       marginTop: 30,
