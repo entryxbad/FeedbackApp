@@ -7,30 +7,38 @@ import {
   useWindowDimensions
 } from 'react-native'
 import { AuthContext } from './context/AuthContext'
+import LinearGradient from 'react-native-linear-gradient'
 
 export const Home = ({ navigation }) => {
   const { logout } = useContext(AuthContext)
   const { styles } = useStyle()
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.block}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Questions')}
-        >
-          <Text style={styles.title}>Начать опрос</Text>
-        </TouchableOpacity>
+    <LinearGradient
+      colors={['#009be5', '#eaeff2', '#1976d3']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.wrapper}>
+        <View style={styles.block}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Questions')}
+          >
+            <Text style={styles.title}>Начать опрос</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.block}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Logout')}
+            style={styles.buttonExit}
+          >
+            <Text style={styles.titleExit}>Выйти из аккаунта</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.block}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Logout')}
-          style={styles.buttonExit}
-        >
-          <Text style={styles.titleExit}>Выйти из аккаунта</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </LinearGradient>
   )
 }
 
@@ -43,7 +51,6 @@ const useStyle = () => {
   const styles = StyleSheet.create({
     wrapper: {
       display: 'flex',
-      backgroundColor: '#fff',
       justifyContent: 'center',
       alignItems: 'center',
       width: width,

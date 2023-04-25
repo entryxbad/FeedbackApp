@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from './context/AuthContext'
+import LinearGradient from 'react-native-linear-gradient'
 
 export const Logout = ({ navigation }) => {
   const [password, setPassword] = useState('')
@@ -27,28 +28,35 @@ export const Logout = ({ navigation }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.wrapper}>
-        <Text style={styles.headerText}>Выход из учётной записи</Text>
-        <TextInput
-          style={styles.input}
-          secureTextEntry={true}
-          placeholder='Введите пароль'
-          autoCapitalize='none'
-          value={password}
-          onChangeText={setPassword}
-        ></TextInput>
-        <TouchableOpacity style={styles.buttonExit} onPress={handleLogout}>
-          <Text style={styles.buttonExitText}>Выйти</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Text style={styles.buttonText}>Назад</Text>
-        </TouchableOpacity>
-      </View>
-    </TouchableWithoutFeedback>
+    <LinearGradient
+      colors={['#009be5', '#eaeff2', '#1976d3']}
+      start={{ x: 1, y: 1 }}
+      end={{ x: 1, y: 0 }}
+      style={{ flex: 1 }}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.wrapper}>
+          <Text style={styles.headerText}>Выход из учётной записи</Text>
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder='Введите пароль'
+            autoCapitalize='none'
+            value={password}
+            onChangeText={setPassword}
+          ></TextInput>
+          <TouchableOpacity style={styles.buttonExit} onPress={handleLogout}>
+            <Text style={styles.buttonExitText}>Выйти</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Text style={styles.buttonText}>Назад</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
+    </LinearGradient>
   )
 }
 

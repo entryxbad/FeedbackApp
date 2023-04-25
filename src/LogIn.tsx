@@ -11,6 +11,7 @@ import {
 import React, { useState, useContext } from 'react'
 import MaskInput from 'react-native-mask-input'
 import { AuthContext } from './context/AuthContext'
+import LinearGradient from 'react-native-linear-gradient'
 
 export const LogIn = () => {
   const { styles } = useStyle()
@@ -25,62 +26,69 @@ export const LogIn = () => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.wrapper}>
-        <Text style={styles.headerText}>Войдите в учётную запись</Text>
-        {/* <TextInput
+    <LinearGradient
+      colors={['#009be5', '#eaeff2', '#1976d3']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{ flex: 1 }}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.wrapper}>
+          <Text style={styles.headerText}>Войдите в учётную запись</Text>
+          {/* <TextInput
         style={styles.input}
         placeholder="Логин"
         value={username}
         onChangeText={(text) => setUsername(text)}></TextInput> */}
 
-        <MaskInput
-          style={styles.input}
-          value={phone}
-          placeholder='Логин'
-          keyboardType='numeric'
-          onChangeText={handleChange}
-          mask={[
-            '+',
-            '7',
-            ' ',
-            '(',
-            /\d/,
-            /\d/,
-            /\d/,
-            ')',
-            ' ',
-            /\d/,
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/
-          ]}
-        />
+          <MaskInput
+            style={styles.input}
+            value={phone}
+            placeholder='Логин'
+            keyboardType='numeric'
+            onChangeText={handleChange}
+            mask={[
+              '+',
+              '7',
+              ' ',
+              '(',
+              /\d/,
+              /\d/,
+              /\d/,
+              ')',
+              ' ',
+              /\d/,
+              /\d/,
+              /\d/,
+              '-',
+              /\d/,
+              /\d/,
+              '-',
+              /\d/,
+              /\d/
+            ]}
+          />
 
-        <TextInput
-          style={styles.input}
-          secureTextEntry={true}
-          placeholder='Пароль'
-          autoCapitalize='none'
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        ></TextInput>
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder='Пароль'
+            autoCapitalize='none'
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          ></TextInput>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            login(username, password)
-          }}
-        >
-          <Text style={styles.buttonText}>Войти</Text>
-        </TouchableOpacity>
-      </View>
-    </TouchableWithoutFeedback>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              login(username, password)
+            }}
+          >
+            <Text style={styles.buttonText}>Войти</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
+    </LinearGradient>
   )
 }
 
@@ -91,7 +99,6 @@ const useStyle = () => {
     wrapper: {
       height: height,
       width: width,
-      backgroundColor: '#fff',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'

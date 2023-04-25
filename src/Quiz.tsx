@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 import { useQuiz } from './hooks'
+import LinearGradient from 'react-native-linear-gradient'
 
 export const Quiz = ({ navigation }) => {
   const { styles } = useStyle()
@@ -47,10 +48,17 @@ export const Quiz = ({ navigation }) => {
 
   if (loading || !currentQuestion) {
     return (
-      <View style={styles.wrapper}>
-        <ActivityIndicator size={50} color='#1a75d4' />
-        <Text style={styles.loadTitle}>Идет загрузка данных...</Text>
-      </View>
+      <LinearGradient
+        colors={['#009be5', '#fff', '#1976d3']}
+        start={{ x: 1, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ flex: 1 }}
+      >
+        <View style={styles.wrapper}>
+          <ActivityIndicator size={50} color='#1a75d4' />
+          <Text style={styles.loadTitle}>Идет загрузка данных...</Text>
+        </View>
+      </LinearGradient>
     )
   }
 
@@ -94,7 +102,6 @@ const useStyle = () => {
   const styles = StyleSheet.create({
     wrapper: {
       display: 'flex',
-      backgroundColor: '#fff',
       justifyContent: 'center',
       alignItems: 'center',
       width: width,
