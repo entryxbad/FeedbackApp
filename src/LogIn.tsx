@@ -6,23 +6,23 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
-import React, {useState, useContext} from 'react';
-import MaskInput from 'react-native-mask-input';
-import {AuthContext} from './context/AuthContext';
+  Keyboard
+} from 'react-native'
+import React, { useState, useContext } from 'react'
+import MaskInput from 'react-native-mask-input'
+import { AuthContext } from './context/AuthContext'
 
 export const LogIn = () => {
-  const {styles} = useStyle();
-  const [phone, setPhone] = useState('');
-  const {login} = useContext(AuthContext);
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
+  const { styles } = useStyle()
+  const [phone, setPhone] = useState('')
+  const { login } = useContext(AuthContext)
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
 
   const handleChange = (masked, text) => {
-    setPhone(masked);
-    setUsername(text);
-  };
+    setPhone(masked)
+    setUsername(text)
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -37,8 +37,8 @@ export const LogIn = () => {
         <MaskInput
           style={styles.input}
           value={phone}
-          placeholder="Логин"
-          keyboardType="numeric"
+          placeholder='Логин'
+          keyboardType='numeric'
           onChangeText={handleChange}
           mask={[
             '+',
@@ -58,32 +58,34 @@ export const LogIn = () => {
             /\d/,
             '-',
             /\d/,
-            /\d/,
+            /\d/
           ]}
         />
 
         <TextInput
           style={styles.input}
           secureTextEntry={true}
-          placeholder="Пароль"
-          autoCapitalize="none"
+          placeholder='Пароль'
+          autoCapitalize='none'
           value={password}
-          onChangeText={(text) => setPassword(text)}></TextInput>
+          onChangeText={(text) => setPassword(text)}
+        ></TextInput>
 
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            login(username, password);
-          }}>
+            login(username, password)
+          }}
+        >
           <Text style={styles.buttonText}>Войти</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
-  );
-};
+  )
+}
 
 const useStyle = () => {
-  const {height, width} = useWindowDimensions();
+  const { height, width } = useWindowDimensions()
 
   const styles = StyleSheet.create({
     wrapper: {
@@ -92,11 +94,11 @@ const useStyle = () => {
       backgroundColor: '#112e80',
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     },
     headerText: {
       color: '#fff',
-      fontSize: width * 0.05,
+      fontSize: width * 0.05
     },
     input: {
       backgroundColor: '#fff',
@@ -105,7 +107,7 @@ const useStyle = () => {
       borderRadius: width * 0.01,
       marginTop: 30,
       padding: 10,
-      fontSize: width * 0.015,
+      fontSize: width * 0.015
     },
     button: {
       backgroundColor: '#456ede',
@@ -115,12 +117,12 @@ const useStyle = () => {
       width: width * 0.4,
       padding: 10,
       marginTop: 30,
-      alignItems: 'center',
+      alignItems: 'center'
     },
     buttonText: {
       color: '#fff',
-      fontSize: width * 0.028,
-    },
-  });
-  return {styles};
-};
+      fontSize: width * 0.028
+    }
+  })
+  return { styles }
+}
