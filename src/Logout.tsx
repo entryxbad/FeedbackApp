@@ -78,7 +78,7 @@ const useStyle = () => {
       fontSize: width * 0.015
     },
     button: {
-      backgroundColor: '#008C8C',
+      backgroundColor: '#1a75d4',
       borderRadius: width * 0.01,
       width: width * 0.4,
       padding: 10,
@@ -88,7 +88,7 @@ const useStyle = () => {
     buttonExit: {
       borderWidth: 2,
       borderRadius: width * 0.01,
-      borderColor: '#008C8C',
+      borderColor: '#1a75d4',
       width: width * 0.4,
       alignItems: 'center',
       justifyContent: 'center',
@@ -100,7 +100,7 @@ const useStyle = () => {
       fontSize: width * 0.028
     },
     buttonExitText: {
-      color: '#008C8C',
+      color: '#1a75d4',
       fontSize: width * 0.028
     }
   })

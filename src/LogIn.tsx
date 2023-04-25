@@ -111,7 +111,7 @@ const useStyle = () => {
       fontSize: width * 0.015
     },
     button: {
-      backgroundColor: '#008C8C',
+      backgroundColor: '#1a75d4',
       borderRadius: width * 0.01,
       width: width * 0.4,
       padding: 10,
