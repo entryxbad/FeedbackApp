@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React, {useContext, useState} from 'react';
 import {AuthContext} from './context/AuthContext';
@@ -25,24 +27,26 @@ export const Logout = ({navigation}) => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <Text style={styles.headerText}>Выход из учётной записи</Text>
-      <TextInput
-        style={styles.input}
-        secureTextEntry={true}
-        placeholder="Введите пароль"
-        autoCapitalize="none"
-        value={password}
-        onChangeText={setPassword}></TextInput>
-      <TouchableOpacity style={styles.buttonExit} onPress={handleLogout}>
-        <Text style={styles.buttonText}>Выйти</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>Назад</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.wrapper}>
+        <Text style={styles.headerText}>Выход из учётной записи</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          placeholder="Введите пароль"
+          autoCapitalize="none"
+          value={password}
+          onChangeText={setPassword}></TextInput>
+        <TouchableOpacity style={styles.buttonExit} onPress={handleLogout}>
+          <Text style={styles.buttonText}>Выйти</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.buttonText}>Назад</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -64,9 +68,11 @@ const useStyle = () => {
     input: {
       backgroundColor: '#fff',
       width: width * 0.4,
+      height: height * 0.08,
       borderRadius: width * 0.01,
       marginTop: 30,
       padding: 10,
+      fontSize: width * 0.015,
     },
     button: {
       backgroundColor: '#456ede',

@@ -5,6 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   useWindowDimensions,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import MaskInput from 'react-native-mask-input';
@@ -23,58 +25,60 @@ export const LogIn = () => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <Text style={styles.headerText}>Войдите в учётную запись</Text>
-      {/* <TextInput
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.wrapper}>
+        <Text style={styles.headerText}>Войдите в учётную запись</Text>
+        {/* <TextInput
         style={styles.input}
         placeholder="Логин"
         value={username}
         onChangeText={(text) => setUsername(text)}></TextInput> */}
 
-      <MaskInput
-        style={styles.input}
-        value={phone}
-        placeholder="Логин"
-        keyboardType="numeric"
-        onChangeText={handleChange}
-        mask={[
-          '+',
-          '7',
-          ' ',
-          '(',
-          /\d/,
-          /\d/,
-          /\d/,
-          ')',
-          ' ',
-          /\d/,
-          /\d/,
-          /\d/,
-          '-',
-          /\d/,
-          /\d/,
-          '-',
-          /\d/,
-          /\d/,
-        ]}
-      />
+        <MaskInput
+          style={styles.input}
+          value={phone}
+          placeholder="Логин"
+          keyboardType="numeric"
+          onChangeText={handleChange}
+          mask={[
+            '+',
+            '7',
+            ' ',
+            '(',
+            /\d/,
+            /\d/,
+            /\d/,
+            ')',
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            '-',
+            /\d/,
+            /\d/,
+            '-',
+            /\d/,
+            /\d/,
+          ]}
+        />
 
-      <TextInput
-        style={styles.input}
-        secureTextEntry={true}
-        placeholder="Пароль"
-        autoCapitalize="none"
-        value={password}
-        onChangeText={(text) => setPassword(text)}></TextInput>
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          placeholder="Пароль"
+          autoCapitalize="none"
+          value={password}
+          onChangeText={(text) => setPassword(text)}></TextInput>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          login(username, password);
-        }}>
-        <Text style={styles.buttonText}>Войти</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            login(username, password);
+          }}>
+          <Text style={styles.buttonText}>Войти</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -97,9 +101,11 @@ const useStyle = () => {
     input: {
       backgroundColor: '#fff',
       width: width * 0.4,
+      height: height * 0.08,
       borderRadius: width * 0.01,
       marginTop: 30,
       padding: 10,
+      fontSize: width * 0.015,
     },
     button: {
       backgroundColor: '#456ede',
