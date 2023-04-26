@@ -8,13 +8,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import MaskInput from 'react-native-mask-input'
 import { AuthContext } from './context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
 import { useForm, Controller } from 'react-hook-form'
 
 export const LogIn = () => {
+  const [phone, setPhone] = useState('')
   const { styles } = useStyle()
   const { login } = useContext(AuthContext)
   const {
@@ -25,6 +26,23 @@ export const LogIn = () => {
 
   const onSubmit = (data) => {
     login(data.username, data.password)
+  }
+
+  const handleChange = (maskedValue, unmaskedValue) => {
+    if (unmaskedValue.length > 0 && unmaskedValue[0] === '8') {
+      setPhone(
+        '+7 ' +
+          unmaskedValue.slice(1, 4) +
+          ' ' +
+          unmaskedValue.slice(4, 7) +
+          '-' +
+          unmaskedValue.slice(7, 9) +
+          '-' +
+          unmaskedValue.slice(9, 11)
+      )
+    } else {
+      setPhone(maskedValue)
+    }
   }
 
   return (
@@ -42,10 +60,13 @@ export const LogIn = () => {
             render={({ field: { onChange, value } }) => (
               <MaskInput
                 style={styles.input}
-                value={value}
+                value={phone}
                 placeholder='+7 (___) ___-__-__'
                 keyboardType='numeric'
-                onChangeText={(unmasked) => onChange(unmasked)}
+                onChangeText={(masked, unmasked) => {
+                  handleChange(masked, unmasked)
+                  onChange(unmasked)
+                }}
                 mask={[
                   '+',
                   '7',
