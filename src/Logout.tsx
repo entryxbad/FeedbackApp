@@ -7,7 +7,8 @@ import {
   useWindowDimensions,
   StyleSheet,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  KeyboardAvoidingView
 } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from './context/AuthContext'
@@ -35,7 +36,7 @@ export const Logout = ({ navigation }) => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.wrapper}>
+        <KeyboardAvoidingView style={styles.wrapper} behavior='padding'>
           <Text style={styles.headerText}>Выход из учётной записи</Text>
           <TextInput
             style={styles.input}
@@ -54,7 +55,7 @@ export const Logout = ({ navigation }) => {
           >
             <Text style={styles.buttonText}>Назад</Text>
           </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </LinearGradient>
   )

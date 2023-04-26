@@ -1,28 +1,30 @@
 import {
   StyleSheet,
   Text,
-  View,
+  KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
   useWindowDimensions,
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native'
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import MaskInput from 'react-native-mask-input'
 import { AuthContext } from './context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
+import { useForm, Controller } from 'react-hook-form'
 
 export const LogIn = () => {
   const { styles } = useStyle()
-  const [phone, setPhone] = useState('')
   const { login } = useContext(AuthContext)
-  const [username, setUsername] = useState(null)
-  const [password, setPassword] = useState(null)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
 
-  const handleChange = (masked, text) => {
-    setPhone(masked)
-    setUsername(text)
+  const onSubmit = (data) => {
+    login(data.username, data.password)
   }
 
   return (
@@ -33,60 +35,79 @@ export const LogIn = () => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.wrapper}>
+        <KeyboardAvoidingView style={styles.wrapper} behavior='padding'>
           <Text style={styles.headerText}>Войдите в учётную запись</Text>
-          {/* <TextInput
-        style={styles.input}
-        placeholder="Логин"
-        value={username}
-        onChangeText={(text) => setUsername(text)}></TextInput> */}
-
-          <MaskInput
-            style={styles.input}
-            value={phone}
-            placeholder='Логин'
-            keyboardType='numeric'
-            onChangeText={handleChange}
-            mask={[
-              '+',
-              '7',
-              ' ',
-              '(',
-              /\d/,
-              /\d/,
-              /\d/,
-              ')',
-              ' ',
-              /\d/,
-              /\d/,
-              /\d/,
-              '-',
-              /\d/,
-              /\d/,
-              '-',
-              /\d/,
-              /\d/
-            ]}
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <MaskInput
+                style={styles.input}
+                value={value}
+                placeholder='+7 (___) ___-__-__'
+                keyboardType='numeric'
+                onChangeText={(unmasked) => onChange(unmasked)}
+                mask={[
+                  '+',
+                  '7',
+                  ' ',
+                  '(',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  ')',
+                  ' ',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  '-',
+                  /\d/,
+                  /\d/,
+                  '-',
+                  /\d/,
+                  /\d/
+                ]}
+              />
+            )}
+            name='username'
+            rules={{ required: true }}
+            defaultValue=''
           />
+          {errors.username && (
+            <Text style={styles.errorText}>
+              Это поле обязательно для заполнения
+            </Text>
+          )}
 
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            placeholder='Пароль'
-            autoCapitalize='none'
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          ></TextInput>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                secureTextEntry={true}
+                placeholder='Пароль'
+                autoCapitalize='none'
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(text) => onChange(text)}
+              />
+            )}
+            name='password'
+            rules={{ required: true }}
+            defaultValue=''
+          />
+          {errors.password && (
+            <Text style={styles.errorText}>
+              Это поле обязательно для заполнения
+            </Text>
+          )}
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {
-              login(username, password)
-            }}
+            onPress={handleSubmit(onSubmit)}
           >
             <Text style={styles.buttonText}>Войти</Text>
           </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </LinearGradient>
   )
@@ -128,6 +149,9 @@ const useStyle = () => {
     buttonText: {
       color: '#fff',
       fontSize: width * 0.028
+    },
+    errorText: {
+      color: 'red'
     }
   })
   return { styles }
