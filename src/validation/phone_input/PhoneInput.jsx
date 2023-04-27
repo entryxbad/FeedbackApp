@@ -71,7 +71,7 @@ export const PhoneInput = ({
         defaultValue={defaultValue}
       />
       {errors[name] && (
-        <Text style={{ color: 'red' }}>
+        <Text style={{ color: 'red', fontSize: 21 }}>
           Это поле обязательно для заполнения
         </Text>
       )}

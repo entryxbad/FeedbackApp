@@ -8,14 +8,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
 import { useForm, Controller } from 'react-hook-form'
 import { PhoneInputField } from './validation/phone_input/PhoneInputField'
 
 export const LogIn = () => {
-  const [phone, setPhone] = useState('')
   const { styles } = useStyle()
   const { login } = useContext(AuthContext)
   const {
@@ -25,6 +24,10 @@ export const LogIn = () => {
   } = useForm()
 
   const onSubmit = (data) => {
+    const phone = data.phone
+    if (phone && phone.length < 10) {
+      return
+    }
     login(data.username, data.password)
   }
 
@@ -40,17 +43,26 @@ export const LogIn = () => {
           <Text style={styles.headerText}>Войдите в учётную запись</Text>
           <Controller
             control={control}
-            render={({ field: { onChange } }) => (
+            render={() => (
               <PhoneInputField
                 control={control}
                 errors={errors}
                 name='phone'
-                rules={{ required: true }}
+                rules={{
+                  required: true,
+                  minLength: {
+                    value: 10,
+                    message: 'Некорректный номер телефона'
+                  }
+                }}
                 defaultValue=''
               />
             )}
             name='phone'
-            rules={{ required: true }}
+            rules={{
+              required: true,
+              minLength: { value: 10, message: 'Некорректный номер телефона' }
+            }}
             defaultValue=''
           />
           {errors.username && (
@@ -132,7 +144,8 @@ const useStyle = () => {
       fontSize: width * 0.028
     },
     errorText: {
-      color: 'red'
+      color: 'red',
+      fontSize: width * 0.015
     }
   })
   return { styles }

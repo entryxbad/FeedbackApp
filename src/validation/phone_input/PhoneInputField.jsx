@@ -15,7 +15,7 @@ export const PhoneInputField = ({
   return (
     <Controller
       control={control}
-      render={({ field: { onChange, value } }) => (
+      render={() => (
         <PhoneInput
           control={control}
           errors={errors}
