@@ -31,8 +31,8 @@ export const LogIn = () => {
   return (
     <LinearGradient
       colors={['#009be5', '#eaeff2', '#1976d3']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
+      start={{ x: 0, y: 1 }}
+      end={{ x: 1, y: 0 }}
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
