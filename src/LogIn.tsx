@@ -9,10 +9,10 @@ import {
   Keyboard
 } from 'react-native'
 import React, { useContext, useState } from 'react'
-import MaskInput from 'react-native-mask-input'
 import { AuthContext } from './context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
 import { useForm, Controller } from 'react-hook-form'
+import { PhoneInputField } from './validation/phone_input/PhoneInputField'
 
 export const LogIn = () => {
   const [phone, setPhone] = useState('')
@@ -28,23 +28,6 @@ export const LogIn = () => {
     login(data.username, data.password)
   }
 
-  const handleChange = (maskedValue, unmaskedValue) => {
-    if (unmaskedValue.length > 0 && unmaskedValue[0] === '8') {
-      setPhone(
-        '+7 ' +
-          unmaskedValue.slice(1, 4) +
-          ' ' +
-          unmaskedValue.slice(4, 7) +
-          '-' +
-          unmaskedValue.slice(7, 9) +
-          '-' +
-          unmaskedValue.slice(9, 11)
-      )
-    } else {
-      setPhone(maskedValue)
-    }
-  }
-
   return (
     <LinearGradient
       colors={['#009be5', '#eaeff2', '#1976d3']}
@@ -57,39 +40,16 @@ export const LogIn = () => {
           <Text style={styles.headerText}>Войдите в учётную запись</Text>
           <Controller
             control={control}
-            render={({ field: { onChange, value } }) => (
-              <MaskInput
-                style={styles.input}
-                value={phone}
-                placeholder='+7 (___) ___-__-__'
-                keyboardType='numeric'
-                onChangeText={(masked, unmasked) => {
-                  handleChange(masked, unmasked)
-                  onChange(unmasked)
-                }}
-                mask={[
-                  '+',
-                  '7',
-                  ' ',
-                  '(',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  ')',
-                  ' ',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  '-',
-                  /\d/,
-                  /\d/,
-                  '-',
-                  /\d/,
-                  /\d/
-                ]}
+            render={({ field: { onChange } }) => (
+              <PhoneInputField
+                control={control}
+                errors={errors}
+                name='phone'
+                rules={{ required: true }}
+                defaultValue=''
               />
             )}
-            name='username'
+            name='phone'
             rules={{ required: true }}
             defaultValue=''
           />
