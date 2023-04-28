@@ -1,18 +1,18 @@
+import React, { useContext } from 'react'
 import {
   StyleSheet,
   Text,
   KeyboardAvoidingView,
-  TextInput,
   TouchableOpacity,
   useWindowDimensions,
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native'
-import React, { useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
 import { useForm, Controller } from 'react-hook-form'
 import { PhoneInputField } from './validation/phone_input/PhoneInputField'
+import { PassInputField } from './validation/pass_input/PassInputField'
 
 export const LogIn = () => {
   const { styles } = useStyle()
@@ -25,9 +25,11 @@ export const LogIn = () => {
 
   const onSubmit = (data) => {
     const phone = data.phone
+
     if (phone && phone.length < 10) {
       return
     }
+
     login(data.username, data.password)
   }
 
@@ -65,34 +67,24 @@ export const LogIn = () => {
             }}
             defaultValue=''
           />
-          {errors.username && (
-            <Text style={styles.errorText}>
-              Это поле обязательно для заполнения
-            </Text>
-          )}
 
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                secureTextEntry={true}
-                placeholder='Пароль'
-                autoCapitalize='none'
-                value={value}
-                onBlur={onBlur}
-                onChangeText={(text) => onChange(text)}
+            render={() => (
+              <PassInputField
+                control={control}
+                errors={errors}
+                name='password'
+                rules={{
+                  required: true
+                }}
+                defaultValue=''
               />
             )}
             name='password'
             rules={{ required: true }}
             defaultValue=''
           />
-          {errors.password && (
-            <Text style={styles.errorText}>
-              Это поле обязательно для заполнения
-            </Text>
-          )}
 
           <TouchableOpacity
             style={styles.button}
@@ -121,16 +113,6 @@ const useStyle = () => {
       color: '#000',
       fontSize: width * 0.05
     },
-    input: {
-      width: width * 0.4,
-      height: height * 0.08,
-      borderWidth: 2,
-      borderRadius: width * 0.01,
-      borderColor: '#B3B3B3',
-      marginTop: 30,
-      padding: 10,
-      fontSize: width * 0.015
-    },
     button: {
       backgroundColor: '#1a75d4',
       borderRadius: width * 0.01,
@@ -142,10 +124,6 @@ const useStyle = () => {
     buttonText: {
       color: '#fff',
       fontSize: width * 0.028
-    },
-    errorText: {
-      color: 'red',
-      fontSize: width * 0.015
     }
   })
   return { styles }

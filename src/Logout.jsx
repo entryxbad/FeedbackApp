@@ -13,17 +13,11 @@ import {
 import React, { useContext, useState } from 'react'
 import { AuthContext } from './context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
-import { useForm, Controller } from 'react-hook-form'
 
 export const Logout = ({ navigation }) => {
   const [password, setPassword] = useState('')
   const { styles } = useStyle()
   const { logout } = useContext(AuthContext)
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = useForm()
 
   const handleLogout = () => {
     if (password === 'test') {
