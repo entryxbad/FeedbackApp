@@ -27,7 +27,7 @@ export const LogIn = () => {
     const phone = data.phone
     const password = data.password
 
-    if ((phone && phone.length < 10) || (password && password.length < 6)) {
+    if (!phone || phone.length < 10 || !password || password.length < 6) {
       return
     }
 
@@ -77,7 +77,8 @@ export const LogIn = () => {
                 errors={errors}
                 name='password'
                 rules={{
-                  required: true
+                  required: true,
+                  minLength: { value: 6, message: 'Неверный пароль' }
                 }}
                 defaultValue=''
               />

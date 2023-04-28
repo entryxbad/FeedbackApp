@@ -33,7 +33,9 @@ export const PassInput = ({
       />
       {errors[name] && (
         <Text style={{ color: 'red', fontSize: 21 }}>
-          Это поле обязательно для заполнения
+          {errors[name].type === 'required'
+            ? 'Это поле обязательно для заполнения'
+            : 'Неверный пароль'}
         </Text>
       )}
     </>
