@@ -19,7 +19,7 @@ export const PhoneInputField = ({
         <PhoneInput
           control={control}
           errors={errors}
-          name='phone'
+          name={name}
           rules={{ required: true }}
           style={styles.input}
         />

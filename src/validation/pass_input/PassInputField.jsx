@@ -16,7 +16,7 @@ export const PassInputField = ({
         <PassInput
           control={control}
           errors={errors}
-          name='password'
+          name={name}
           rules={{ required: true }}
         />
       )}

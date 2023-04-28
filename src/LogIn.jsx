@@ -25,8 +25,9 @@ export const LogIn = () => {
 
   const onSubmit = (data) => {
     const phone = data.phone
+    const password = data.password
 
-    if (phone && phone.length < 10) {
+    if ((phone && phone.length < 10) || (password && password.length < 6)) {
       return
     }
 
