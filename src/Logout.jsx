@@ -1,8 +1,5 @@
 import {
-  View,
   Text,
-  Alert,
-  TextInput,
   TouchableOpacity,
   useWindowDimensions,
   StyleSheet,
@@ -10,21 +7,30 @@ import {
   Keyboard,
   KeyboardAvoidingView
 } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
+import { useForm } from 'react-hook-form'
+import { PassInput } from './validation/pass_input/PassInput'
 
 export const Logout = ({ navigation }) => {
-  const [password, setPassword] = useState('')
   const { styles } = useStyle()
   const { logout } = useContext(AuthContext)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      password: ''
+    },
+    mode: 'onSubmit'
+  })
 
-  const handleLogout = () => {
-    if (password === 'test') {
+  const handleLogout = (data) => {
+    if (data.password === 'test') {
       logout()
       navigation.navigate('Login')
-    } else {
-      Alert.alert('Неверный пароль')
     }
   }
 
@@ -39,17 +45,19 @@ export const Logout = ({ navigation }) => {
         <KeyboardAvoidingView style={styles.wrapper} behavior='padding'>
           <Text style={styles.headerText}>Выход из учётной записи</Text>
 
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            placeholder='Введите пароль'
-            autoCapitalize='none'
-            value={password}
-            onChangeText={setPassword}
-          ></TextInput>
-          <TouchableOpacity style={styles.buttonExit} onPress={handleLogout}>
+          <PassInput
+            control={control}
+            errors={errors}
+            name='password'
+            rules={{ required: true }}
+          />
+          <TouchableOpacity
+            style={styles.buttonExit}
+            onPress={handleSubmit(handleLogout)}
+          >
             <Text style={styles.buttonExitText}>Выйти</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate('Home')}
@@ -61,7 +69,6 @@ export const Logout = ({ navigation }) => {
     </LinearGradient>
   )
 }
-
 const useStyle = () => {
   const { width, height } = useWindowDimensions()
   const styles = StyleSheet.create({
