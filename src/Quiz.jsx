@@ -63,38 +63,29 @@ export const Quiz = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.wrapper}>
-      <View>
-        <Text style={styles.title}>{currentQuestion.title}</Text>
-        {currentQuestion.options.map((option) => (
-          <TouchableOpacity
-            key={option.id}
-            style={styles.option}
-            onPress={() => handleAnswer(option)}
-          >
-            <Text style={styles.questions}>{option.title}</Text>
-          </TouchableOpacity>
-        ))}
+    <LinearGradient
+      colors={['#009be5', '#fff', '#1976d3']}
+      start={{ x: 1, y: 1 }}
+      end={{ x: 1, y: 0 }}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.wrapper}>
+        <View>
+          <Text style={styles.title}>{currentQuestion.title}</Text>
+          {currentQuestion.options.map((option) => (
+            <TouchableOpacity
+              key={option.id}
+              style={styles.option}
+              onPress={() => handleAnswer(option)}
+            >
+              <Text style={styles.questions}>{option.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   )
 }
-//   return (
-//     <View style={styles.wrapper}>
-//       <View>
-//         <Text style={styles.title}>{currentQuestion.text1}</Text>
-//         {currentQuestion.options.map((option) => (
-//           <TouchableOpacity
-//             key={option.id}
-//             style={styles.option}
-//             onPress={() => handleAnswer(option)}>
-//             <Text style={styles.questions}>{option.title}</Text>
-//           </TouchableOpacity>
-//         ))}
-//       </View>
-//     </View>
-//   );
-// };
 
 const useStyle = () => {
   const { height, width } = useWindowDimensions()
@@ -111,25 +102,23 @@ const useStyle = () => {
     title: {
       padding: 20,
       textAlign: 'center',
-      borderWidth: width * 0.001,
-      borderColor: '#BEBEBE',
-      borderRadius: width * 0.01,
       marginBottom: 24,
       fontSize: width * 0.028,
-      color: '#ffff'
+      color: '#000',
+      borderRadius: width * 0.01,
+      borderWidth: width * 0.002,
+      borderColor: '#1a75d4'
     },
     option: {
       width: width * 0.8,
       padding: 8,
       textAlign: 'center',
-      borderWidth: width * 0.001,
-      borderColor: '#BEBEBE',
-      borderRadius: width * 0.01,
       marginBottom: 15,
-      backgroundColor: '#20356e'
+      backgroundColor: '#1a75d4',
+      borderRadius: width * 0.01
     },
     questions: {
-      color: '#ffff',
+      color: '#fff',
       fontSize: width * 0.028
     },
     loadTitle: {
