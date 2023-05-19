@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { questionUrl } from './constants/Constants'
+import DeviceInfo from 'react-native-device-info'
 
 // const mapData = (payload) =>
 //   payload
@@ -219,4 +220,14 @@ export const useQuiz = () => {
   }, [])
 
   return [data, loading, error, append]
+}
+
+//Get unique device id
+export const getUniqueDeviceId = async () => {
+  try {
+    const deviceId = await DeviceInfo.getUniqueId()
+    console.log('Device ID:', deviceId)
+  } catch (error) {
+    console.log('Ошибка при получении идентификатора устройства:', error)
+  }
 }
