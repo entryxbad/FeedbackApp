@@ -31,7 +31,8 @@ export const LogIn = () => {
       return
     }
 
-    login(data.username, data.password)
+    login(phone, password)
+    console.log(phone, password)
   }
 
   return (

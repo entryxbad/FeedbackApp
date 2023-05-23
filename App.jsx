@@ -12,9 +12,9 @@ import { AppNav } from './src/navigation/AppNav'
 
 function App() {
   useSender()
-  useEffect(() => {
-    getUniqueDeviceId()
-  })
+  // useEffect(() => {
+  //   getUniqueDeviceId()
+  // })
 
   return (
     <AuthProvider>

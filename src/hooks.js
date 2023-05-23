@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { questionUrl } from './constants/Constants'
-import DeviceInfo from 'react-native-device-info'
+// import DeviceInfo from 'react-native-device-info'
 
 // const mapData = (payload) =>
 //   payload
@@ -16,75 +16,75 @@ import DeviceInfo from 'react-native-device-info'
 //       return { title, options }
 //     })
 
-const mock = [
-  {
-    id: 1,
-    title: 'Часто ли вы посещаете наше заведение?',
-    options: [
-      { id: 4, title: 'Ответ 1 вопроса 1' },
-      { id: 5, title: 'Ответ 2 вопроса 1' },
-      { id: 6, title: 'Ответ 3 вопроса 1' },
-      { id: 7, title: 'Ответ 4 вопроса 1' }
-    ]
-  },
-  {
-    id: 2,
-    title: 'Понравилась ли вам еда?',
-    options: [
-      { id: 8, title: 'Ответ 1 вопроса 2' },
-      { id: 9, title: 'Ответ 2 вопроса 2' },
-      { id: 10, title: 'Ответ 3 вопроса 2' },
-      { id: 11, title: 'Ответ 4 вопроса 2' }
-    ]
-  },
-  {
-    id: 3,
-    title: 'Придете ли вы еще?',
-    options: [
-      { id: 12, title: 'Ответ 1 вопроса 3' },
-      { id: 13, title: 'Ответ 2 вопроса 3' },
-      { id: 14, title: 'Ответ 3 вопроса 3' },
-      { id: 15, title: 'Ответ 4 вопроса 3' }
-    ]
-  }
-]
+// const mock = [
+//   {
+//     id: 1,
+//     title: 'Часто ли вы посещаете наше заведение?',
+//     options: [
+//       { id: 4, title: 'Ответ 1 вопроса 1' },
+//       { id: 5, title: 'Ответ 2 вопроса 1' },
+//       { id: 6, title: 'Ответ 3 вопроса 1' },
+//       { id: 7, title: 'Ответ 4 вопроса 1' }
+//     ]
+//   },
+//   {
+//     id: 2,
+//     title: 'Понравилась ли вам еда?',
+//     options: [
+//       { id: 8, title: 'Ответ 1 вопроса 2' },
+//       { id: 9, title: 'Ответ 2 вопроса 2' },
+//       { id: 10, title: 'Ответ 3 вопроса 2' },
+//       { id: 11, title: 'Ответ 4 вопроса 2' }
+//     ]
+//   },
+//   {
+//     id: 3,
+//     title: 'Придете ли вы еще?',
+//     options: [
+//       { id: 12, title: 'Ответ 1 вопроса 3' },
+//       { id: 13, title: 'Ответ 2 вопроса 3' },
+//       { id: 14, title: 'Ответ 3 вопроса 3' },
+//       { id: 15, title: 'Ответ 4 вопроса 3' }
+//     ]
+//   }
+// ]
 
-export const fakeSend = (answers) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(answers)
-    }, 2000)
-  })
-}
+// export const fakeSend = (answers) => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(answers)
+//     }, 2000)
+//   })
+// }
 
-const fakeRequest = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mock)
-    }, 2000)
-  })
-}
+// const fakeRequest = () => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(mock)
+//     }, 2000)
+//   })
+// }
 
-const fakeError = () => {
-  return new Promise((_, reject) => {
-    setTimeout(() => {
-      reject('Connection error')
-    }, 2000)
-  })
-}
+// const fakeError = () => {
+//   return new Promise((_, reject) => {
+//     setTimeout(() => {
+//       reject('Connection error')
+//     }, 2000)
+//   })
+// }
 
 // {
 //   headers: {authorization: `Bearer: ${token}`},
 // }
 //let token = await AsyncStorage.getItem('userToken');
 
-// const fetchQuestion = async () => {
-//   return fetch(questionUrl)
-//     .then((response) => {
-//       return response.json().then((data) => console.log('Hooks data', data));
-//     })
-//     .catch((error) => console.log('Hooks error:', error));
-// };
+const fetchQuestion = async () => {
+  return fetch(questionUrl)
+    .then((response) => {
+      return response.json().then((data) => console.log('Hooks data', data))
+    })
+    .catch((error) => console.log('Hooks error:', error))
+}
 
 // const fetchQuestion = () => {
 //   return fetch(questionUrl).then((response) => response.json())
@@ -92,6 +92,7 @@ const fakeError = () => {
 
 export const ANSWERS_STORAGE_KEY = 'pending-answers'
 const CACHED_DATA_STORAGE_KEY = 'cached-data'
+// const DEVICE_ID = 'device-id'
 
 const getItem = async (key) => {
   try {
@@ -178,7 +179,7 @@ export const useQuiz = () => {
 
   const getQuestions = () => {
     setLoading(true)
-    return fakeRequest()
+    return fetchQuestion()
       .then((response) => {
         console.log('Response from server:', response)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -223,11 +224,12 @@ export const useQuiz = () => {
 }
 
 //Get unique device id
-export const getUniqueDeviceId = async () => {
-  try {
-    const deviceId = await DeviceInfo.getAndroidId()
-    console.log('Device ID:', deviceId)
-  } catch (error) {
-    console.log('Ошибка при получении идентификатора устройства:', error)
-  }
-}
+// export const getUniqueDeviceId = async () => {
+//   try {
+//     const deviceId = await DeviceInfo.getAndroidId()
+//     console.log('Device ID:', deviceId)
+//     // setItem(DEVICE_ID, deviceId)
+//   } catch (error) {
+//     console.log('Ошибка при получении идентификатора устройства:', error)
+//   }
+// }
