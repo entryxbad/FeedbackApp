@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import React, { createContext, useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { authUrl } from '../constants/Constants'
-//import DeviceInfo from 'react-native-device-info'
+import { authUrl, checkDeviceIdUrl } from '../constants/Constants'
+import DeviceInfo from 'react-native-device-info'
 import jwt_decode from 'jwt-decode'
 
 export const AuthContext = createContext()
@@ -20,56 +20,69 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true)
 
     try {
-      //const deviceId = await DeviceInfo.getUniqueId()
-
       const data = {
         number,
         password
-        //deviceId
       }
 
-      axios
-        .post(`${authUrl}`, data, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then((response) => {
-          //console.log('Device ID:', deviceId)
-          console.log('Response:', response.data)
-          const decodeToken = jwt_decode(response.data)
-          console.log('Decode JWT', decodeToken)
+      const response = await axios.post(`${authUrl}`, data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
 
-          //setUserToken(response.data)
-          //AsyncStorage.setItem('userToken', response.data)
-          //const returnedDeviceId = response.data.deviceId
-          //console.log('Returned Device ID:', returnedDeviceId)
-        })
-        .catch((error) => {
-          console.log('Ошибка при логине:', error)
-          errorAlert()
-        })
-        .finally(() => {
-          setIsLoading(false)
-        })
+      console.log('Response:', response.data)
+      const decodeToken = jwt_decode(response.data)
+      console.log('Decode JWT:', decodeToken)
+
+      if (decodeToken !== null) {
+        setUserToken(decodeToken)
+        AsyncStorage.setItem('userToken', JSON.stringify(decodeToken))
+      }
+
+      const deviceId = await DeviceInfo.getAndroidId()
+      console.log('Device ID:', deviceId)
+      console.log('userID:', decodeToken.id)
+
+      await checkDevice(deviceId)
     } catch (error) {
-      console.log('Ошибка при получении deviceId:', error)
+      console.log('Ошибка при логине:', error)
+      errorAlert()
+    } finally {
       setIsLoading(false)
     }
   }
+
+  const checkDevice = async (deviceId, id) => {
+    try {
+      const data = {
+        deviceId
+      }
+
+      const response = await axios.post(`${checkDeviceIdUrl}`, data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      console.log('Ответ проверки устройства', response.data)
+    } catch (error) {
+      console.log('Ошибка при проверке устройства', error)
+    }
+  }
+
   const logout = () => {
-    //setIsLoading(true)
-    //setUserToken(null)
-    // AsyncStorage.removeItem('userToken');
-    setIsLoading(false)
+    // setIsLoading(true)
+    // setUserToken(null)
+    // AsyncStorage.removeItem('userToken')
+    // setIsLoading(false)
   }
 
   const isLoggedIn = async () => {
     try {
-      setIsLoading(true)
-      //let userToken = await AsyncStorage.getItem('userToken')
-      //setUserToken(userToken)
-      setIsLoading(false)
+      // setIsLoading(true)
+      // let userToken = await AsyncStorage.getItem('userToken')
+      // setUserToken(userToken)
+      // setIsLoading(false)
     } catch (error) {
       console.log(`Is logged in error ${error}`)
     }

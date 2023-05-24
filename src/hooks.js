@@ -222,14 +222,3 @@ export const useQuiz = () => {
 
   return [data, loading, error, append]
 }
-
-//Get unique device id
-// export const getUniqueDeviceId = async () => {
-//   try {
-//     const deviceId = await DeviceInfo.getAndroidId()
-//     console.log('Device ID:', deviceId)
-//     // setItem(DEVICE_ID, deviceId)
-//   } catch (error) {
-//     console.log('Ошибка при получении идентификатора устройства:', error)
-//   }
-// }
