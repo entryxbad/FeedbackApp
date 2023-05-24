@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { questionUrl } from './constants/Constants'
-// import DeviceInfo from 'react-native-device-info'
+import axios from 'axios'
+import {
+  getAnswersUrl,
+  getQuestionsUrl,
+  postAnswersUrl
+} from './constants/Constants'
 
 // const mapData = (payload) =>
 //   payload
@@ -78,21 +82,58 @@ import { questionUrl } from './constants/Constants'
 // }
 //let token = await AsyncStorage.getItem('userToken');
 
-const fetchQuestion = async () => {
-  return fetch(questionUrl)
-    .then((response) => {
-      return response.json().then((data) => console.log('Hooks data', data))
+//Запрос на получение вопросов
+const fetchQuestion = async (robotId) => {
+  try {
+    const response = await axios.get(`${getQuestionsUrl}`, {
+      params: { robotId }
     })
-    .catch((error) => console.log('Hooks error:', error))
+
+    console.log('Список вопросов', response.data)
+    return response
+    // Дальнейшая обработка списка вопросов
+  } catch (error) {
+    console.log('Ошибка при получении списка вопросов', error)
+    // Обработка ошибки
+  }
 }
 
-// const fetchQuestion = () => {
-//   return fetch(questionUrl).then((response) => response.json())
-// }
+//Запрос на получение ответов
+export const fetchAnswers = async (questionId) => {
+  try {
+    const response = await axios.get(`${getAnswersUrl}`, {
+      params: { questionId }
+    })
+    console.log('Список ответов:', response.data)
+    return response
+  } catch (error) {
+    console.log('Ошибка получения списка ответов', error)
+  }
+}
+
+//Запрос на отправку ответов
+const sendAnswers = async (questionId, answerId) => {
+  try {
+    const data = {
+      questionId,
+      answerId
+    }
+
+    const response = await axios.post(`${postAnswersUrl}`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    console.log('Ответы отправлены', response.data)
+  } catch (error) {
+    console.log('Ошибка отправки ответов', error)
+    // Обработка ошибки
+  }
+}
 
 export const ANSWERS_STORAGE_KEY = 'pending-answers'
 const CACHED_DATA_STORAGE_KEY = 'cached-data'
-// const DEVICE_ID = 'device-id'
 
 const getItem = async (key) => {
   try {
@@ -141,27 +182,38 @@ export const useSender = () => {
         return
       }
 
-      console.log('Found some answers, sending...', answers)
+      console.log('Found some answers, sending...', JSON.stringify(answers))
       setTimeout(() => {
         clearItem(ANSWERS_STORAGE_KEY)
       }, 5000)
 
-      // const promises = Object.values(answers).map(request);
-      // Promise.all(promises)
-      //   // Успешно отправили на сервер
-      //   .then(() => {
-      //     // Увеличиваем счетчик
-      //     sent.current++;
-      //     console.log('Data has been sent');
-      //     console.log('Clearing storage...');
-      //     // Чистим хранилище так как все ответы мы уже отправили
-      //     quizStorage.clear(ANSWERS_STORAGE_KEY);
-      //   })
-      //   .catch(() => {
-      //     // Увеличиваем счетчик
-      //     failed.current++;
-      //     console.log('Could not send data, maybe next time');
-      //   });
+      console.log('Obj Answers:', Object.values(answers))
+      const data = Object.values(answers)
+        .flat()
+        .map((answerObj) => ({
+          answerId: answerObj.answer.id,
+          questionId: answerObj.question.id
+        }))
+
+      const mapAnswers = data.map((obj) => {
+        return sendAnswers(obj.answerId, obj.questionId)
+      })
+      console.log('data:', data)
+      Promise.all(mapAnswers)
+        // Успешно отправили на сервер
+        .then(() => {
+          // Увеличиваем счетчик
+          sent.current++
+          console.log('Data has been sent')
+          console.log('Clearing storage...')
+          // Чистим хранилище так как все ответы мы уже отправили
+          clearItem(ANSWERS_STORAGE_KEY)
+        })
+        .catch(() => {
+          // Увеличиваем счетчик
+          failed.current++
+          console.log('Could not send data, maybe next time')
+        })
     }
 
     // Создаем интервал который будет слать запросы на сервер с заданной переодичностью
@@ -177,14 +229,14 @@ export const useQuiz = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const getQuestions = () => {
+  const getQuestions = (robotId) => {
     setLoading(true)
-    return fetchQuestion()
+    return fetchQuestion(robotId)
       .then((response) => {
-        console.log('Response from server:', response)
+        console.log('Response from server:', response.data)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        setData(response)
+        setData([response.data[0], response.data[1]])
         return response
       })
       .catch((error) => {
@@ -194,6 +246,13 @@ export const useQuiz = () => {
       .finally(() => {
         setLoading(false)
       })
+  }
+
+  const getAnswers = () => {
+    return fetchAnswers().then((response) => {
+      //console.log('Response answers:', response)
+      return response
+    })
   }
 
   const append = async (payload) => {
@@ -214,9 +273,12 @@ export const useQuiz = () => {
 
   useEffect(() => {
     // Делаем запрос на список вопросов
-    getQuestions().then((response) => {
-      // Сохраняем вопросы локально
-      setItem(CACHED_DATA_STORAGE_KEY, response)
+    getItem('robotData').then((value) => {
+      console.log('ROBOT DATA', value.id)
+      getQuestions(value.id).then((response) => {
+        // Сохраняем вопросы локально
+        setItem(CACHED_DATA_STORAGE_KEY, response)
+      })
     })
   }, [])
 

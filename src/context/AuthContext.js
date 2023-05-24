@@ -2,7 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import React, { createContext, useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { authUrl, checkDeviceIdUrl } from '../constants/Constants'
+import {
+  authUrl,
+  checkDeviceIdUrl,
+  registerDeviceUrl,
+  getQuestionsUrl
+} from '../constants/Constants'
 import DeviceInfo from 'react-native-device-info'
 import jwt_decode from 'jwt-decode'
 
@@ -16,6 +21,7 @@ export const AuthProvider = ({ children }) => {
     Alert.alert('Неверный логин или пароль')
   }
 
+  //Запрос на логин
   const login = async (number, password) => {
     setIsLoading(true)
 
@@ -43,8 +49,9 @@ export const AuthProvider = ({ children }) => {
       const deviceId = await DeviceInfo.getAndroidId()
       console.log('Device ID:', deviceId)
       console.log('userID:', decodeToken.id)
+      const userId = decodeToken.id
 
-      await checkDevice(deviceId)
+      await checkDevice(deviceId, userId)
     } catch (error) {
       console.log('Ошибка при логине:', error)
       errorAlert()
@@ -53,7 +60,8 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const checkDevice = async (deviceId, id) => {
+  //Проверка существования устройства
+  const checkDevice = async (deviceId, userId) => {
     try {
       const data = {
         deviceId
@@ -64,9 +72,37 @@ export const AuthProvider = ({ children }) => {
           'Content-Type': 'application/json'
         }
       })
+
       console.log('Ответ проверки устройства', response.data)
+
+      await registerDevice(deviceId, userId)
     } catch (error) {
       console.log('Ошибка при проверке устройства', error)
+      // Обработка ошибки
+    }
+  }
+
+  //Регистрация устройства
+  const registerDevice = async (deviceId, userId) => {
+    try {
+      const data = {
+        deviceId,
+        userId
+      }
+
+      const response = await axios.post(`${registerDeviceUrl}`, data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      console.log('Ответ регистрации устройства', response.data)
+
+      // Сохранение данных устройства в AsyncStorage
+      AsyncStorage.setItem('robotData', JSON.stringify(response.data))
+    } catch (error) {
+      console.log('Ошибка при регистрации устройства', error)
+      // Обработка ошибки
     }
   }
 

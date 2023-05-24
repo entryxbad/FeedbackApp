@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Text,
   View,
@@ -8,8 +8,41 @@ import {
   useWindowDimensions
 } from 'react-native'
 
-import { useQuiz } from './hooks'
+import { fetchAnswers, useQuiz } from './hooks'
 import LinearGradient from 'react-native-linear-gradient'
+
+const Answers = ({ questionId, onHandleAnswer }) => {
+  const { styles } = useStyle()
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    // Делаем запрос на список вопросов
+    fetchAnswers(questionId)
+      .then((response) => {
+        setData(response.data)
+        //console.log('Resp Ans', response)
+      })
+      .catch((error) => {
+        console.log('AnswerComp', error)
+      })
+  }, [questionId])
+
+  console.log('QUEST ID', questionId)
+
+  return (
+    <View>
+      {data.map((option) => (
+        <TouchableOpacity
+          key={option.id}
+          style={styles.option}
+          onPress={() => onHandleAnswer(option)}
+        >
+          <Text style={styles.questions}>{option.text}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  )
+}
 
 export const Quiz = ({ navigation }) => {
   const { styles } = useStyle()
@@ -29,21 +62,20 @@ export const Quiz = ({ navigation }) => {
   }
 
   const handleAnswer = (option) => {
-    if (currentQuestionIndex === data.length - 1) {
-      setCurrentQuestionIndex(0)
-      append(answers)
-      setAnswers([])
-      navigation.navigate('Thankyou')
-      return
-    }
-
     const newAnswer = {
       question: { id: currentQuestion.id, title: currentQuestion.title },
       answer: option
     }
 
-    setAnswers((prevAnswers) => [...prevAnswers, newAnswer])
-    nextQuestion()
+    if (currentQuestionIndex === data.length - 1) {
+      setCurrentQuestionIndex(0)
+      append([...answers, newAnswer])
+      setAnswers([])
+      navigation.navigate('Thankyou')
+    } else {
+      setAnswers((prevAnswers) => [...prevAnswers, newAnswer])
+      nextQuestion()
+    }
   }
 
   if (loading || !currentQuestion) {
@@ -71,16 +103,11 @@ export const Quiz = ({ navigation }) => {
     >
       <View style={styles.wrapper}>
         <View>
-          <Text style={styles.title}>{currentQuestion.title}</Text>
-          {currentQuestion.options.map((option) => (
-            <TouchableOpacity
-              key={option.id}
-              style={styles.option}
-              onPress={() => handleAnswer(option)}
-            >
-              <Text style={styles.questions}>{option.title}</Text>
-            </TouchableOpacity>
-          ))}
+          <Text style={styles.title}>{currentQuestion.text}</Text>
+          <Answers
+            questionId={currentQuestion.id}
+            onHandleAnswer={handleAnswer}
+          />
         </View>
       </View>
     </LinearGradient>
