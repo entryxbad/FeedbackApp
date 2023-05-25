@@ -5,8 +5,7 @@ import { Alert } from 'react-native'
 import {
   authUrl,
   checkDeviceIdUrl,
-  registerDeviceUrl,
-  getQuestionsUrl
+  registerDeviceUrl
 } from '../constants/Constants'
 import DeviceInfo from 'react-native-device-info'
 import jwt_decode from 'jwt-decode'

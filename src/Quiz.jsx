@@ -1,48 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
   ActivityIndicator,
   useWindowDimensions
 } from 'react-native'
 
-import { fetchAnswers, useQuiz } from './hooks'
+import { useQuiz } from './hooks'
 import LinearGradient from 'react-native-linear-gradient'
-
-const Answers = ({ questionId, onHandleAnswer }) => {
-  const { styles } = useStyle()
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    // Делаем запрос на список вопросов
-    fetchAnswers(questionId)
-      .then((response) => {
-        setData(response.data)
-        //console.log('Resp Ans', response)
-      })
-      .catch((error) => {
-        console.log('AnswerComp', error)
-      })
-  }, [questionId])
-
-  console.log('QUEST ID', questionId)
-
-  return (
-    <View>
-      {data.map((option) => (
-        <TouchableOpacity
-          key={option.id}
-          style={styles.option}
-          onPress={() => onHandleAnswer(option)}
-        >
-          <Text style={styles.questions}>{option.text}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  )
-}
+import { Answers } from './Answers'
 
 export const Quiz = ({ navigation }) => {
   const { styles } = useStyle()

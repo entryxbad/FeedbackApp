@@ -7,76 +7,6 @@ import {
   postAnswersUrl
 } from './constants/Constants'
 
-// const mapData = (payload) =>
-//   payload
-//     .split('\n')
-//     .map((v) => v.trim())
-//     .filter((v) => !v.includes('undefined') && !!v)
-//     .map((v) => {
-//       const [title, variants] = v.split(';')
-//       const options = variants
-//         .split(',')
-//         .map((v, index) => ({ title: v.trim(), id: index }))
-//       return { title, options }
-//     })
-
-// const mock = [
-//   {
-//     id: 1,
-//     title: 'Часто ли вы посещаете наше заведение?',
-//     options: [
-//       { id: 4, title: 'Ответ 1 вопроса 1' },
-//       { id: 5, title: 'Ответ 2 вопроса 1' },
-//       { id: 6, title: 'Ответ 3 вопроса 1' },
-//       { id: 7, title: 'Ответ 4 вопроса 1' }
-//     ]
-//   },
-//   {
-//     id: 2,
-//     title: 'Понравилась ли вам еда?',
-//     options: [
-//       { id: 8, title: 'Ответ 1 вопроса 2' },
-//       { id: 9, title: 'Ответ 2 вопроса 2' },
-//       { id: 10, title: 'Ответ 3 вопроса 2' },
-//       { id: 11, title: 'Ответ 4 вопроса 2' }
-//     ]
-//   },
-//   {
-//     id: 3,
-//     title: 'Придете ли вы еще?',
-//     options: [
-//       { id: 12, title: 'Ответ 1 вопроса 3' },
-//       { id: 13, title: 'Ответ 2 вопроса 3' },
-//       { id: 14, title: 'Ответ 3 вопроса 3' },
-//       { id: 15, title: 'Ответ 4 вопроса 3' }
-//     ]
-//   }
-// ]
-
-// export const fakeSend = (answers) => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(answers)
-//     }, 2000)
-//   })
-// }
-
-// const fakeRequest = () => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(mock)
-//     }, 2000)
-//   })
-// }
-
-// const fakeError = () => {
-//   return new Promise((_, reject) => {
-//     setTimeout(() => {
-//       reject('Connection error')
-//     }, 2000)
-//   })
-// }
-
 // {
 //   headers: {authorization: `Bearer: ${token}`},
 // }
@@ -246,13 +176,6 @@ export const useQuiz = () => {
       .finally(() => {
         setLoading(false)
       })
-  }
-
-  const getAnswers = () => {
-    return fetchAnswers().then((response) => {
-      //console.log('Response answers:', response)
-      return response
-    })
   }
 
   const append = async (payload) => {
