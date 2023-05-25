@@ -7,11 +7,6 @@ import {
   postAnswersUrl
 } from './constants/Constants'
 
-// {
-//   headers: {authorization: `Bearer: ${token}`},
-// }
-//let token = await AsyncStorage.getItem('userToken');
-
 //Запрос на получение вопросов
 const fetchQuestion = async (robotId) => {
   try {
