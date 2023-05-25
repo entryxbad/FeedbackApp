@@ -30,7 +30,7 @@ export const Quiz = ({ navigation }) => {
 
   const handleAnswer = (option) => {
     const newAnswer = {
-      question: { id: currentQuestion.id, title: currentQuestion.title },
+      question: { id: currentQuestion.id, text: currentQuestion.text },
       answer: option
     }
 

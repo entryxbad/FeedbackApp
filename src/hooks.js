@@ -4,7 +4,7 @@ import axios from 'axios'
 import {
   getAnswersUrl,
   getQuestionsUrl,
-  postAnswersUrl
+  postReviewUrl
 } from './constants/Constants'
 
 //Запрос на получение вопросов
@@ -37,14 +37,16 @@ export const fetchAnswers = async (questionId) => {
 }
 
 //Запрос на отправку ответов
-const sendAnswers = async (questionId, answerId) => {
+const sendAnswers = async (question, answer, robotId, robotName) => {
   try {
     const data = {
-      questionId,
-      answerId
+      question,
+      answer,
+      robotId,
+      robotName
     }
 
-    const response = await axios.post(`${postAnswersUrl}`, data, {
+    const response = await axios.post(`${postReviewUrl}`, data, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -101,27 +103,38 @@ export const useSender = () => {
 
       // Достаем сохраненные ответы
       const answers = await getItem(ANSWERS_STORAGE_KEY)
+      const robotData = await getItem('robotData') // Для того что бы достать robotId и robotName
+      console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA:', robotData.id)
+
+      let robotId, robotName
       // Если их нет, то логаемся и выходим из функции
       if (!answers) {
         console.log('No data to send, idle...')
         return
       }
 
+      if (robotData) {
+        robotId = robotData.id
+        robotName = robotData.name
+      }
+
       console.log('Found some answers, sending...', JSON.stringify(answers))
+      console.log('DATA ROBOT...', JSON.stringify(robotData))
       setTimeout(() => {
         clearItem(ANSWERS_STORAGE_KEY)
       }, 5000)
 
-      console.log('Obj Answers:', Object.values(answers))
       const data = Object.values(answers)
         .flat()
         .map((answerObj) => ({
-          answerId: answerObj.answer.id,
-          questionId: answerObj.question.id
+          answer: answerObj.answer.text,
+          question: answerObj.question.text,
+          robotId,
+          robotName
         }))
 
       const mapAnswers = data.map((obj) => {
-        return sendAnswers(obj.answerId, obj.questionId)
+        return sendAnswers(obj.answer, obj.question, obj.robotId, obj.robotName)
       })
       console.log('data:', data)
       Promise.all(mapAnswers)
@@ -161,7 +174,7 @@ export const useQuiz = () => {
         console.log('Response from server:', response.data)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        setData([response.data[0], response.data[1]])
+        setData(response.data)
         return response
       })
       .catch((error) => {
@@ -175,6 +188,7 @@ export const useQuiz = () => {
 
   const append = async (payload) => {
     const answers = await getItem(ANSWERS_STORAGE_KEY)
+
     if (!answers) {
       const newAnswers = {
         [Date.now()]: payload
@@ -192,7 +206,7 @@ export const useQuiz = () => {
   useEffect(() => {
     // Делаем запрос на список вопросов
     getItem('robotData').then((value) => {
-      console.log('ROBOT DATA', value.id)
+      console.log('ROBOT DATA', value)
       getQuestions(value.id).then((response) => {
         // Сохраняем вопросы локально
         setItem(CACHED_DATA_STORAGE_KEY, response)

@@ -50,34 +50,12 @@ export const AuthProvider = ({ children }) => {
       console.log('userID:', decodeToken.id)
       const userId = decodeToken.id
 
-      await checkDevice(deviceId, userId)
+      await registerDevice(deviceId, userId)
     } catch (error) {
       console.log('Ошибка при логине:', error)
       errorAlert()
     } finally {
       setIsLoading(false)
-    }
-  }
-
-  //Проверка существования устройства
-  const checkDevice = async (deviceId, userId) => {
-    try {
-      const data = {
-        deviceId
-      }
-
-      const response = await axios.post(`${checkDeviceIdUrl}`, data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-
-      console.log('Ответ проверки устройства', response.data)
-
-      await registerDevice(deviceId, userId)
-    } catch (error) {
-      console.log('Ошибка при проверке устройства', error)
-      // Обработка ошибки
     }
   }
 
