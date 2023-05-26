@@ -104,7 +104,6 @@ export const useSender = () => {
       // Достаем сохраненные ответы
       const answers = await getItem(ANSWERS_STORAGE_KEY)
       const robotData = await getItem('robotData') // Для того что бы достать robotId и robotName
-      console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA:', robotData.id)
 
       let robotId, robotName
       // Если их нет, то логаемся и выходим из функции

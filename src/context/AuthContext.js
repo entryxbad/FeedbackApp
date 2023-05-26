@@ -2,11 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import React, { createContext, useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import {
-  authUrl,
-  checkDeviceIdUrl,
-  registerDeviceUrl
-} from '../constants/Constants'
+import { authUrl, registerDeviceUrl } from '../constants/Constants'
 import DeviceInfo from 'react-native-device-info'
 import jwt_decode from 'jwt-decode'
 
@@ -84,18 +80,18 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = () => {
-    // setIsLoading(true)
-    // setUserToken(null)
-    // AsyncStorage.removeItem('userToken')
-    // setIsLoading(false)
+    setIsLoading(true)
+    setUserToken(null)
+    AsyncStorage.removeItem('userToken')
+    setIsLoading(false)
   }
 
   const isLoggedIn = async () => {
     try {
-      // setIsLoading(true)
-      // let userToken = await AsyncStorage.getItem('userToken')
-      // setUserToken(userToken)
-      // setIsLoading(false)
+      setIsLoading(true)
+      let userToken = await AsyncStorage.getItem('userToken')
+      setUserToken(userToken)
+      setIsLoading(false)
     } catch (error) {
       console.log(`Is logged in error ${error}`)
     }
