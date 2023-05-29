@@ -7,7 +7,7 @@ import {
   useWindowDimensions
 } from 'react-native'
 
-import { useQuiz } from './hooks'
+import { getItem, sendAnswers, useQuiz } from './hooks'
 import LinearGradient from 'react-native-linear-gradient'
 import { Answers } from './Answers'
 
@@ -15,7 +15,7 @@ export const Quiz = ({ navigation }) => {
   const { styles } = useStyle()
   const [data, loading, error, append] = useQuiz()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [answers, setAnswers] = useState([])
+  // const [answers, setAnswers] = useState([])
 
   const currentQuestion = data[currentQuestionIndex]
 
@@ -28,20 +28,31 @@ export const Quiz = ({ navigation }) => {
     setCurrentQuestionIndex(currentQuestionIndex + 1)
   }
 
-  const handleAnswer = (option) => {
-    const newAnswer = {
-      question: { id: currentQuestion.id, text: currentQuestion.text },
-      answer: option
+  const handleAnswer = async (answer) => {
+    const robotData = await getItem('robotData') // Для того что бы достать robotId и robotName
+
+    let robotId, robotName, question
+    answer = answer.text
+
+    if (robotData) {
+      robotId = robotData.id
+      robotName = robotData.name
     }
 
-    if (currentQuestionIndex === data.length - 1) {
-      setCurrentQuestionIndex(0)
-      append([...answers, newAnswer])
-      setAnswers([])
-      navigation.navigate('Thankyou')
-    } else {
-      setAnswers((prevAnswers) => [...prevAnswers, newAnswer])
-      nextQuestion()
+    question = data[currentQuestionIndex].text
+
+    console.log('ANSWER:', answer)
+
+    try {
+      await sendAnswers(answer, question, robotId, robotName)
+    } catch (error) {
+      console.log('Ошибка отправки ответа', error)
+    } finally {
+      if (currentQuestionIndex === data.length - 1) {
+        navigation.navigate('Thankyou')
+      } else {
+        nextQuestion()
+      }
     }
   }
 

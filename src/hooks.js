@@ -37,14 +37,15 @@ export const fetchAnswers = async (questionId) => {
 }
 
 //Запрос на отправку ответов
-const sendAnswers = async (question, answer, robotId, robotName) => {
+export const sendAnswers = async (answer, question, robotId, robotName) => {
   try {
     const data = {
-      question,
       answer,
+      question,
       robotId,
       robotName
     }
+    console.log('DATA HOOKS:', data)
 
     const response = await axios.post(`${postReviewUrl}`, data, {
       headers: {
@@ -62,7 +63,7 @@ const sendAnswers = async (question, answer, robotId, robotName) => {
 export const ANSWERS_STORAGE_KEY = 'pending-answers'
 const CACHED_DATA_STORAGE_KEY = 'cached-data'
 
-const getItem = async (key) => {
+export const getItem = async (key) => {
   try {
     const value = await AsyncStorage.getItem(key)
     if (!value) {
@@ -102,55 +103,55 @@ export const useSender = () => {
       console.log(`Total attempts: ${sent.current + failed.current}`)
 
       // Достаем сохраненные ответы
-      const answers = await getItem(ANSWERS_STORAGE_KEY)
-      const robotData = await getItem('robotData') // Для того что бы достать robotId и robotName
+      // const answers = await getItem(ANSWERS_STORAGE_KEY)
+      // const robotData = await getItem('robotData') // Для того что бы достать robotId и robotName
 
-      let robotId, robotName
-      // Если их нет, то логаемся и выходим из функции
-      if (!answers) {
-        console.log('No data to send, idle...')
-        return
-      }
+      // let robotId, robotName
+      // // Если их нет, то логаемся и выходим из функции
+      // if (!answers) {
+      //   console.log('No data to send, idle...')
+      //   return
+      // }
 
-      if (robotData) {
-        robotId = robotData.id
-        robotName = robotData.name
-      }
+      // if (robotData) {
+      //   robotId = robotData.id
+      //   robotName = robotData.name
+      // }
 
-      console.log('Found some answers, sending...', JSON.stringify(answers))
-      console.log('DATA ROBOT...', JSON.stringify(robotData))
-      setTimeout(() => {
-        clearItem(ANSWERS_STORAGE_KEY)
-      }, 5000)
+      // console.log('Found some answers, sending...', JSON.stringify(answers))
+      // console.log('DATA ROBOT...', JSON.stringify(robotData))
+      // setTimeout(() => {
+      //   clearItem(ANSWERS_STORAGE_KEY)
+      // }, 5000)
 
-      const data = Object.values(answers)
-        .flat()
-        .map((answerObj) => ({
-          answer: answerObj.answer.text,
-          question: answerObj.question.text,
-          robotId,
-          robotName
-        }))
+      // const data = Object.values(answers)
+      //   .flat()
+      //   .map((answerObj) => ({
+      //     answer: answerObj.answer.text,
+      //     question: answerObj.question.text,
+      //     robotId,
+      //     robotName
+      //   }))
 
-      const mapAnswers = data.map((obj) => {
-        return sendAnswers(obj.answer, obj.question, obj.robotId, obj.robotName)
-      })
-      console.log('data:', data)
-      Promise.all(mapAnswers)
-        // Успешно отправили на сервер
-        .then(() => {
-          // Увеличиваем счетчик
-          sent.current++
-          console.log('Data has been sent')
-          console.log('Clearing storage...')
-          // Чистим хранилище так как все ответы мы уже отправили
-          clearItem(ANSWERS_STORAGE_KEY)
-        })
-        .catch(() => {
-          // Увеличиваем счетчик
-          failed.current++
-          console.log('Could not send data, maybe next time')
-        })
+      // const mapAnswers = data.map((obj) => {
+      //   return sendAnswers(obj.answer, obj.question, obj.robotId, obj.robotName)
+      // })
+      // console.log('data:', data)
+      // Promise.all(mapAnswers)
+      //   // Успешно отправили на сервер
+      //   .then(() => {
+      //     // Увеличиваем счетчик
+      //     sent.current++
+      //     console.log('Data has been sent')
+      //     console.log('Clearing storage...')
+      //     // Чистим хранилище так как все ответы мы уже отправили
+      //     clearItem(ANSWERS_STORAGE_KEY)
+      //   })
+      //   .catch(() => {
+      //     // Увеличиваем счетчик
+      //     failed.current++
+      //     console.log('Could not send data, maybe next time')
+      //   })
     }
 
     // Создаем интервал который будет слать запросы на сервер с заданной переодичностью
@@ -185,22 +186,22 @@ export const useQuiz = () => {
       })
   }
 
-  const append = async (payload) => {
-    const answers = await getItem(ANSWERS_STORAGE_KEY)
+  // const append = async (payload) => {
+  //   const answers = await getItem(ANSWERS_STORAGE_KEY)
 
-    if (!answers) {
-      const newAnswers = {
-        [Date.now()]: payload
-      }
+  //   if (!answers) {
+  //     const newAnswers = {
+  //       [Date.now()]: payload
+  //     }
 
-      setItem(ANSWERS_STORAGE_KEY, newAnswers)
-      return
-    }
+  //     setItem(ANSWERS_STORAGE_KEY, newAnswers)
+  //     return
+  //   }
 
-    const next = { ...answers, [Date.now()]: payload }
+  //   const next = { ...answers, [Date.now()]: payload }
 
-    setItem(ANSWERS_STORAGE_KEY, next)
-  }
+  //   setItem(ANSWERS_STORAGE_KEY, next)
+  // }
 
   useEffect(() => {
     // Делаем запрос на список вопросов
@@ -213,5 +214,5 @@ export const useQuiz = () => {
     })
   }, [])
 
-  return [data, loading, error, append]
+  return [data, loading, error]
 }

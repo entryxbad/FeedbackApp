@@ -17,7 +17,7 @@ export const Answers = ({ questionId, onHandleAnswer }) => {
     fetchAnswers(questionId)
       .then((response) => {
         setData(response.data)
-        //console.log('Resp Ans', response.data)
+        //console.log('RESP ANSWERS:', response.data)
       })
       .catch((error) => {
         console.log('AnswerComp', error)
