@@ -56,12 +56,15 @@ export const AuthProvider = ({ children }) => {
   }
 
   //Регистрация устройства
-  const registerDevice = async (deviceId, userId) => {
+  const registerDevice = async (deviceId, userId, name = 'test') => {
     try {
       const data = {
         deviceId,
-        userId
+        userId,
+        name
       }
+
+      console.log('NAME:', name)
 
       const response = await axios.post(`${registerDeviceUrl}`, data, {
         headers: {

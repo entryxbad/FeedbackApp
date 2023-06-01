@@ -8,3 +8,5 @@ export const getAnswersUrl =
   'http://gals-centos.soft-servis.local:8080/api/answer'
 export const postReviewUrl =
   'http://gals-centos.soft-servis.local:8080/api/review'
+
+//http://robominds.soft-servis.ru

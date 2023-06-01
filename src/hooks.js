@@ -37,12 +37,19 @@ export const fetchAnswers = async (questionId) => {
 }
 
 //Запрос на отправку ответов
-export const sendAnswers = async (answer, question, robotId, robotName) => {
+export const sendAnswers = async (
+  answer,
+  question,
+  robotId,
+  userId,
+  robotName = 'test'
+) => {
   try {
     const data = {
       answer,
       question,
       robotId,
+      userId,
       robotName
     }
     console.log('DATA HOOKS:', data)

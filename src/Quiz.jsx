@@ -31,12 +31,16 @@ export const Quiz = ({ navigation }) => {
   const handleAnswer = async (answer) => {
     const robotData = await getItem('robotData') // Для того что бы достать robotId и robotName
 
-    let robotId, robotName, question
+    console.log('ROBOTDATAAAAA:', robotData)
+
+    let robotId, robotName, question, userId
+
     answer = answer.text
 
     if (robotData) {
       robotId = robotData.id
-      robotName = robotData.name
+      userId = robotData.userId
+      robotName = 'test'
     }
 
     question = data[currentQuestionIndex].text
@@ -44,7 +48,7 @@ export const Quiz = ({ navigation }) => {
     console.log('ANSWER:', answer)
 
     try {
-      await sendAnswers(answer, question, robotId, robotName)
+      await sendAnswers(answer, question, robotId, userId, robotName)
     } catch (error) {
       console.log('Ошибка отправки ответа', error)
     } finally {
