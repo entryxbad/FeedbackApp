@@ -8,7 +8,7 @@ export const ThankYou = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Home')
-    }, 5000)
+    }, 1000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -4,7 +4,10 @@ import {
   View,
   StyleSheet,
   ActivityIndicator,
-  useWindowDimensions
+  useWindowDimensions,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native'
 
 import { getItem, sendAnswers, useQuiz } from './hooks'
@@ -75,7 +78,7 @@ export const Quiz = ({ navigation }) => {
       </LinearGradient>
     )
   }
-
+  console.log('CURRENT:', currentQuestion)
   return (
     <LinearGradient
       colors={['#009be5', '#fff', '#1976d3']}
@@ -83,15 +86,20 @@ export const Quiz = ({ navigation }) => {
       end={{ x: 1, y: 0 }}
       style={{ flex: 1 }}
     >
-      <View style={styles.wrapper}>
-        <View>
-          <Text style={styles.title}>{currentQuestion.text}</Text>
-          <Answers
-            questionId={currentQuestion.id}
-            onHandleAnswer={handleAnswer}
-          />
-        </View>
-      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
+          <View>
+            <Text style={styles.title}>{currentQuestion.text}</Text>
+            <Answers
+              questionId={currentQuestion.id}
+              onHandleAnswer={handleAnswer}
+              questionType={currentQuestion.type}
+              onSkip={nextQuestion}
+              key={currentQuestion.id}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   )
 }
