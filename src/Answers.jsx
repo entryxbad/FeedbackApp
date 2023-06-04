@@ -29,11 +29,24 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
 
   console.log('QUEST ID', questionId)
 
+  // Функция для проверки на пустую строку
   const checkInputSendler = () => {
     if (answerValue.trim() !== '') {
       onHandleAnswer({ text: String(answerValue) })
     } else {
       Alert.alert('Пожалуйста, заполните поле')
+    }
+  }
+
+  // Функция для проверки формата email
+  const checkEmailFormat = () => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+    if (emailRegex.test(answerValue)) {
+      // Отправка значения, если формат email корректный
+      onHandleAnswer({ text: String(answerValue) })
+    } else {
+      // Вывод ошибки, если формат email некорректный
+      Alert.alert('Некорректный формат email-адреса')
     }
   }
 
@@ -95,8 +108,14 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
-              const reg = /(\d{2})(\d{2})(\d{4})(\d{0,})/
-              setAnswerValue(text.replace(reg, `$1.$2.$3`))
+              if (
+                (text.length === 2 && !text.includes('.')) ||
+                (text.length === 5 && !text.includes('.', 3))
+              ) {
+                setAnswerValue(text + '.')
+              } else {
+                setAnswerValue(text.replace(/[^\d.]/g, ''))
+              }
             }}
             value={answerValue}
             placeholder='Введите дату рождения'
@@ -114,14 +133,18 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
         <View>
           <TextInput
             style={styles.input}
-            onChangeText={(text) => {
-              const reg =
-                /^[\d]{1}\ \([\d]{2,3}\)\ [\d]{2,3}-[\d]{2,3}-[\d]{2,3}$/
-              setAnswerValue(text.replace(reg, `$1 - ($2) $3-$5-$6`))
+            onChange={(event) => {
+              const text = event.nativeEvent.text
+              const reg = text.replace(
+                /^(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})$/,
+                '+7 ($2) $3-$4-$5'
+              )
+              setAnswerValue(reg)
             }}
             value={answerValue}
             placeholder='Введите номер телефона'
             keyboardType='numeric'
+            maxLength={18}
           />
 
           <TouchableOpacity onPress={checkInputSendler} style={styles.button}>
@@ -130,133 +153,67 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
         </View>
       )
     case 'Оценка до 5':
+      const ratingColorsFive = [
+        '#E53935',
+        '#FF5722',
+        '#FF9800',
+        '#FFC107',
+        '#8BC34A',
+        '#4CAF50'
+      ]
+
       return (
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('1') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.title}>1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('2') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.title}>2</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('3') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.title}>3</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('4') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.title}>4</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('5') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.title}>5</Text>
-          </TouchableOpacity>
+        <View style={styles.ratingContainer}>
+          {Array.from({ length: 6 }, (_, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                onHandleAnswer({ text: String(index) })
+              }}
+              style={[
+                styles.ratingButton,
+                {
+                  backgroundColor:
+                    ratingColorsFive[index % ratingColorsFive.length]
+                }
+              ]}
+            >
+              <Text style={styles.title}>{index}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       )
     case 'Оценка до 10':
+      const ratingColors = [
+        '#ff0000',
+        '#ff3300',
+        '#ff6600',
+        '#ff9900',
+        '#ffcc00',
+        '#f5e000',
+        '#99cc00',
+        '#a3cc00',
+        '#80b300',
+        '#669900',
+        '#008000'
+      ]
+
       return (
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('1') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('2') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>2</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('3') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>3</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('4') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>4</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('5') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>5</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('6') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>6</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('7') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>7</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('8') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>8</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('9') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>9</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onHandleAnswer({ text: String('10') })
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.titleTen}>10</Text>
-          </TouchableOpacity>
+        <View style={styles.ratingContainer}>
+          {Array.from({ length: 11 }, (_, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                onHandleAnswer({ text: String(index) })
+              }}
+              style={[
+                styles.ratingButtonTen,
+                { backgroundColor: ratingColors[index % ratingColors.length] }
+              ]}
+            >
+              <Text style={styles.titleTen}>{index}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       )
     case 'email':
@@ -264,15 +221,12 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
         <View>
           <TextInput
             style={styles.input}
-            onChangeText={(text) => {
-              const reg = /(^[\w-\.])+@[\w-]+\).([a-z]{2,4})$/i
-              setAnswerValue(text.replace(reg, `$1@$2.$3`))
-            }}
+            onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите свой e-mail'
           />
 
-          <TouchableOpacity onPress={checkInputSendler} style={styles.button}>
+          <TouchableOpacity onPress={checkEmailFormat} style={styles.button}>
             <Text style={styles.title}>Отправить</Text>
           </TouchableOpacity>
         </View>
@@ -345,6 +299,32 @@ const useStyle = () => {
       marginBottom: 30,
       padding: 10,
       fontSize: width * 0.015
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop: 10,
+      marginBottom: 10
+    },
+    ratingButton: {
+      width: width * 0.1,
+      height: height * 0.15,
+      marginHorizontal: 5,
+      borderRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    ratingButtonTen: {
+      width: width * 0.08,
+      height: height * 0.15,
+      marginHorizontal: 5,
+      borderRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    ratingButtonText: {
+      fontSize: width * 0.03,
+      color: '#FFF'
     }
   })
   return { styles }
