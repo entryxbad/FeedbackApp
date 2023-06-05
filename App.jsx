@@ -5,10 +5,13 @@
  * @format
  */
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSender } from './src/hooks'
 import { AuthProvider } from './src/context/AuthContext'
 import { AppNav } from './src/navigation/AppNav'
+import axios from 'axios'
+
+axios.defaults.headers.common['Accept'] = 'application/json'
 
 function App() {
   useSender()

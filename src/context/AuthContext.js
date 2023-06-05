@@ -26,11 +26,11 @@ export const AuthProvider = ({ children }) => {
         password
       }
 
-      const response = await axios.post(`${authUrl}`, data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      console.log('Before axios.post')
+
+      const response = await axios.post(`${authUrl}`, data)
+
+      console.log('After axios.post')
 
       console.log('Response:', response.data)
       const decodeToken = jwt_decode(response.data)
@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
       const userId = decodeToken.id
 
       await registerDevice(deviceId, userId)
+      console.log('Registration successful') // Отладочное
     } catch (error) {
       console.log('Ошибка при логине:', error)
       errorAlert()
@@ -66,11 +67,7 @@ export const AuthProvider = ({ children }) => {
 
       console.log('NAME:', name)
 
-      const response = await axios.post(`${registerDeviceUrl}`, data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      const response = await axios.post(`${registerDeviceUrl}`, data)
 
       console.log('Ответ регистрации устройства', response.data)
 

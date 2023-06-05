@@ -57,9 +57,9 @@ export const sendAnswers = async (
     console.log('DATA HOOKS:', data)
 
     const response = await axios.post(`${postReviewUrl}`, data, {
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // }
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
 
     console.log('Ответы отправлены', response.data)
