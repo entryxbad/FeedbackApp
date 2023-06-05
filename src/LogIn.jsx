@@ -126,7 +126,7 @@ const useStyle = () => {
     },
     buttonText: {
       color: '#fff',
-      fontSize: width * 0.028
+      fontSize: width * 0.03
     }
   })
   return { styles }

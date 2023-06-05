@@ -120,7 +120,7 @@ const useStyle = () => {
       padding: 20,
       textAlign: 'center',
       marginBottom: 24,
-      fontSize: width * 0.028,
+      fontSize: width * 0.03,
       color: '#000',
       borderRadius: width * 0.01,
       borderWidth: width * 0.002,
@@ -136,7 +136,7 @@ const useStyle = () => {
     },
     questions: {
       color: '#fff',
-      fontSize: width * 0.028
+      fontSize: width * 0.03
     },
     loadTitle: {
       fontSize: width * 0.02,

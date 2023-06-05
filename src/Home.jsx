@@ -76,12 +76,12 @@ const useStyle = () => {
       color: 'black'
     },
     title: {
-      fontSize: width * 0.028,
+      fontSize: width * 0.03,
       padding: 10,
       color: '#ffff'
     },
     titleExit: {
-      fontSize: width * 0.028,
+      fontSize: width * 0.03,
       padding: 10,
       color: '#1a75d4'
     },

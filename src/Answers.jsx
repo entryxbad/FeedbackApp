@@ -269,7 +269,7 @@ const useStyle = () => {
     },
     questions: {
       color: '#fff',
-      fontSize: width * 0.028
+      fontSize: width * 0.03
     },
     button: {
       backgroundColor: '#1a75d4',
@@ -280,7 +280,7 @@ const useStyle = () => {
       marginTop: 5
     },
     title: {
-      fontSize: width * 0.028,
+      fontSize: width * 0.03,
       padding: 10,
       color: '#ffff'
     },
