@@ -26,11 +26,7 @@ export const AuthProvider = ({ children }) => {
         password
       }
 
-      console.log('Before axios.post')
-
       const response = await axios.post(`${authUrl}`, data)
-
-      console.log('After axios.post')
 
       console.log('Response:', response.data)
       const decodeToken = jwt_decode(response.data)
