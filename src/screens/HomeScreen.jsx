@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { TouchableOpacity, View, Text } from 'react-native'
 import { AuthContext } from '../context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
+import * as Animatable from 'react-native-animatable'
 
 export const HomeScreen = ({ navigation }) => {
   const { logout } = useContext(AuthContext)
@@ -13,13 +14,20 @@ export const HomeScreen = ({ navigation }) => {
       end={{ x: 1, y: 1 }}
       style={{ flex: 1 }}
     >
-      <View className='flex-1 w-full h-full items-center justify-center px-64'>
+      <View className='flex-1 items-center justify-center'>
         {/* Button start */}
         <TouchableOpacity
-          className='bg-[#1a75d4] items-center rounded-2xl w-full'
+          className='absolute items-center rounded-2xl w-[60%] border-l-2 border-r-2 border-t-4 border-[#1a75d4] py-1'
           onPress={() => navigation.navigate('Questions')}
         >
-          <Text className='text-white text-4xl py-4'>Начать опрос</Text>
+          <Animatable.View
+            animation={'pulse'}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            className='w-[95%] justify-center items-center bg-[#1a75d4] rounded-2xl'
+          >
+            <Text className='text-white text-4xl py-4'>Начать опрос</Text>
+          </Animatable.View>
         </TouchableOpacity>
 
         {/* Button exit */}
