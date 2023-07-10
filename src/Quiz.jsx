@@ -3,7 +3,6 @@ import {
   Text,
   View,
   StyleSheet,
-  ActivityIndicator,
   useWindowDimensions,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -13,6 +12,7 @@ import {
 import { getItem, sendAnswers, useQuiz } from './hooks'
 import LinearGradient from 'react-native-linear-gradient'
 import { Answers } from './Answers'
+import Preloader from './components/Preloader'
 
 export const Quiz = ({ navigation }) => {
   const { styles } = useStyle()
@@ -63,21 +63,11 @@ export const Quiz = ({ navigation }) => {
     }
   }
 
+  // Preloader
   if (loading || !currentQuestion) {
-    return (
-      <LinearGradient
-        colors={['#009be5', '#fff', '#1976d3']}
-        start={{ x: 1, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={{ flex: 1 }}
-      >
-        <View style={styles.wrapper}>
-          <ActivityIndicator size={50} color='#1a75d4' />
-          <Text style={styles.loadTitle}>Идет загрузка данных...</Text>
-        </View>
-      </LinearGradient>
-    )
+    return <Preloader />
   }
+
   console.log('CURRENT:', currentQuestion)
   return (
     <LinearGradient
@@ -116,6 +106,11 @@ const useStyle = () => {
       height: height,
       padding: 5
     },
+    loadTitle: {
+      fontSize: width * 0.02,
+      padding: 10,
+      color: '#000'
+    },
     title: {
       padding: 20,
       textAlign: 'center',
@@ -137,11 +132,6 @@ const useStyle = () => {
     questions: {
       color: '#fff',
       fontSize: width * 0.03
-    },
-    loadTitle: {
-      fontSize: width * 0.02,
-      padding: 10,
-      color: '#000'
     }
   })
   return { styles }

@@ -1,18 +1,18 @@
 import React, { useContext } from 'react'
 import {
   Text,
-  KeyboardAvoidingView,
+  View,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native'
-import { AuthContext } from './context/AuthContext'
+import { AuthContext } from '../context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
 import { useForm, Controller } from 'react-hook-form'
-import { PhoneInputField } from './validation/phone_input/PhoneInputField'
-import { PassInputField } from './validation/pass_input/PassInputField'
+import { PhoneInputField } from '../validation/phone_input/PhoneInputField'
+import { PassInputField } from '../validation/pass_input/PassInputField'
 
-export const LogIn = () => {
+export const LoginScreen = () => {
   const { login } = useContext(AuthContext)
   const {
     control,
@@ -40,11 +40,8 @@ export const LogIn = () => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView
-          className='flex-1 items-center justify-center'
-          behavior='padding'
-        >
-          <Text className='text-[#000] text-6xl'>Войдите в учётную запись</Text>
+        <View className='flex-1 items-center justify-center' behavior='padding'>
+          <Text className='text-black text-6xl'>Войдите в учётную запись</Text>
           <Controller
             control={control}
             render={() => (
@@ -96,7 +93,7 @@ export const LogIn = () => {
           >
             <Text className='text-white text-4xl p-4'>Войти</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
+        </View>
       </TouchableWithoutFeedback>
     </LinearGradient>
   )

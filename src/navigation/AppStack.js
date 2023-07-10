@@ -1,10 +1,10 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Home } from '../Home'
+import { HomeScreen } from '../screens/HomeScreen'
 import { Quiz } from '../Quiz'
 import { ThankYou } from '../ThankYou'
-import { LogIn } from '../LogIn'
-import { Logout } from '../Logout'
+import { LoginScreen } from '../screens/LoginScreen'
+import { LogoutScreen } from '../screens/LogoutScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -14,11 +14,11 @@ export const AppStack = () => {
       initialRouteName='Home'
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name='Home' component={Home} />
+      <Stack.Screen name='Home' component={HomeScreen} />
       <Stack.Screen name='Questions' component={Quiz} />
       <Stack.Screen name='Thankyou' component={ThankYou} />
-      <Stack.Screen name='Login' component={LogIn} />
-      <Stack.Screen name='Logout' component={Logout} />
+      <Stack.Screen name='Login' component={LoginScreen} />
+      <Stack.Screen name='Logout' component={LogoutScreen} />
     </Stack.Navigator>
   )
 }
