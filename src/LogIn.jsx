@@ -1,10 +1,8 @@
 import React, { useContext } from 'react'
 import {
-  StyleSheet,
   Text,
   KeyboardAvoidingView,
   TouchableOpacity,
-  useWindowDimensions,
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native'
@@ -15,7 +13,6 @@ import { PhoneInputField } from './validation/phone_input/PhoneInputField'
 import { PassInputField } from './validation/pass_input/PassInputField'
 
 export const LogIn = () => {
-  const { styles } = useStyle()
   const { login } = useContext(AuthContext)
   const {
     control,
@@ -43,8 +40,11 @@ export const LogIn = () => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView style={styles.wrapper} behavior='padding'>
-          <Text style={styles.headerText}>Войдите в учётную запись</Text>
+        <KeyboardAvoidingView
+          className='flex-1 items-center justify-center'
+          behavior='padding'
+        >
+          <Text className='text-[#000] text-6xl'>Войдите в учётную запись</Text>
           <Controller
             control={control}
             render={() => (
@@ -90,44 +90,14 @@ export const LogIn = () => {
           />
 
           <TouchableOpacity
-            style={styles.button}
+            className='bg-[#1a75d4] w-[40%]
+            mt-7 rounded-2xl items-center'
             onPress={handleSubmit(onSubmit)}
           >
-            <Text style={styles.buttonText}>Войти</Text>
+            <Text className='text-white text-4xl p-4'>Войти</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </LinearGradient>
   )
-}
-
-const useStyle = () => {
-  const { height, width } = useWindowDimensions()
-
-  const styles = StyleSheet.create({
-    wrapper: {
-      height: height,
-      width: width,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    headerText: {
-      color: '#000',
-      fontSize: width * 0.05
-    },
-    button: {
-      backgroundColor: '#1a75d4',
-      borderRadius: width * 0.01,
-      width: width * 0.4,
-      padding: 10,
-      marginTop: 30,
-      alignItems: 'center'
-    },
-    buttonText: {
-      color: '#fff',
-      fontSize: width * 0.03
-    }
-  })
-  return { styles }
 }
