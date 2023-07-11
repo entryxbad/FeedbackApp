@@ -40,7 +40,7 @@ export const LoginScreen = () => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View className='flex-1 items-center justify-center' behavior='padding'>
+        <View className='flex-1 items-center justify-center'>
           <Text className='text-black text-6xl'>Войдите в учётную запись</Text>
           <Controller
             control={control}
