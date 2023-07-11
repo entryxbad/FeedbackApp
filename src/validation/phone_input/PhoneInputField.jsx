@@ -1,7 +1,6 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { PhoneInput } from './PhoneInput'
-import { useWindowDimensions, StyleSheet } from 'react-native'
 
 export const PhoneInputField = ({
   control,
@@ -10,8 +9,6 @@ export const PhoneInputField = ({
   rules,
   defaultValue
 }) => {
-  const { styles } = useStyle()
-
   return (
     <Controller
       control={control}
@@ -21,7 +18,7 @@ export const PhoneInputField = ({
           errors={errors}
           name={name}
           rules={{ required: true }}
-          style={styles.input}
+          className='border-2 border-[#B3B3B3] rounded-xl w-[40%] text-xl mt-8 p-3'
         />
       )}
       name={name}
@@ -29,22 +26,4 @@ export const PhoneInputField = ({
       defaultValue={defaultValue}
     />
   )
-}
-
-const useStyle = () => {
-  const { height, width } = useWindowDimensions()
-
-  const styles = StyleSheet.create({
-    input: {
-      width: width * 0.4,
-      height: height * 0.08,
-      borderWidth: 2,
-      borderRadius: width * 0.01,
-      borderColor: '#B3B3B3',
-      marginTop: 30,
-      padding: 10,
-      fontSize: width * 0.015
-    }
-  })
-  return { styles }
 }
