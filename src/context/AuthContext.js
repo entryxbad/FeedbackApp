@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import React, { createContext, useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { authUrl, registerDeviceUrl } from '../constants/constants'
+import { authUrl, registerDeviceUrl } from '../constants/Constants'
 import DeviceInfo from 'react-native-device-info'
 import jwt_decode from 'jwt-decode'
 
