@@ -5,7 +5,7 @@ import {
   getAnswersUrl,
   getQuestionsUrl,
   postReviewUrl
-} from './constants/constants'
+} from './constants/Constants'
 
 //Запрос на получение вопросов
 const fetchQuestion = async (robotId) => {
