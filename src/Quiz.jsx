@@ -2,11 +2,9 @@ import { useState } from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
-  StyleSheet,
   Text,
   TouchableWithoutFeedback,
-  View,
-  useWindowDimensions
+  View
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -15,7 +13,6 @@ import Preloader from './components/Preloader'
 import { getItem, sendAnswers, useQuiz } from './hooks'
 
 export const Quiz = ({ navigation }) => {
-  const { styles } = useStyle()
   const [data, loading, error, append] = useQuiz()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   // const [answers, setAnswers] = useState([])
@@ -77,9 +74,14 @@ export const Quiz = ({ navigation }) => {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
+        <KeyboardAvoidingView
+          behavior='padding'
+          className='flex-1 w-full h-full justify-center items-center p-1'
+        >
           <View>
-            <Text style={styles.title}>{currentQuestion.text}</Text>
+            <Text className='rounded-xl text-black text-4xl text-center mb-6 p-5 border-2 border-[#1a75d4]'>
+              {currentQuestion.text}
+            </Text>
             <Answers
               questionId={currentQuestion.id}
               onHandleAnswer={handleAnswer}
@@ -92,47 +94,4 @@ export const Quiz = ({ navigation }) => {
       </TouchableWithoutFeedback>
     </LinearGradient>
   )
-}
-
-const useStyle = () => {
-  const { height, width } = useWindowDimensions()
-
-  const styles = StyleSheet.create({
-    wrapper: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: width,
-      height: height,
-      padding: 5
-    },
-    loadTitle: {
-      fontSize: width * 0.02,
-      padding: 10,
-      color: '#000'
-    },
-    title: {
-      padding: 20,
-      textAlign: 'center',
-      marginBottom: 24,
-      fontSize: width * 0.03,
-      color: '#000',
-      borderRadius: width * 0.01,
-      borderWidth: width * 0.002,
-      borderColor: '#1a75d4'
-    },
-    option: {
-      width: width * 0.8,
-      padding: 8,
-      textAlign: 'center',
-      marginBottom: 15,
-      backgroundColor: '#1a75d4',
-      borderRadius: width * 0.01
-    },
-    questions: {
-      color: '#fff',
-      fontSize: width * 0.03
-    }
-  })
-  return { styles }
 }
