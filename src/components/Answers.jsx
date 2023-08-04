@@ -9,7 +9,7 @@ import {
   useWindowDimensions
 } from 'react-native'
 
-import { fetchAnswers } from './hooks'
+import { fetchAnswers } from '../hooks'
 
 export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
   const { styles } = useStyle()
@@ -225,6 +225,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите свой e-mail'
+            keyboardType='email-address'
           />
 
           <TouchableOpacity onPress={checkEmailFormat} style={styles.button}>

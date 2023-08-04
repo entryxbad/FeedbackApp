@@ -8,9 +8,9 @@ import {
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
+import { getItem, sendAnswers, useQuiz } from '../hooks'
 import { Answers } from './Answers'
-import Preloader from './components/Preloader'
-import { getItem, sendAnswers, useQuiz } from './hooks'
+import Preloader from './Preloader'
 
 export const Quiz = ({ navigation }) => {
   const [data, loading, error, append] = useQuiz()
@@ -75,7 +75,7 @@ export const Quiz = ({ navigation }) => {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <KeyboardAvoidingView
-          behavior='padding'
+          behavior='height'
           className='flex-1 w-full h-full justify-center items-center p-1'
         >
           <View>

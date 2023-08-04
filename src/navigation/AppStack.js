@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { Quiz } from '../Quiz'
-import { ThankYou } from '../ThankYou'
+import { Quiz } from '../components/Quiz'
 import { HomeScreen } from '../screens/HomeScreen'
 import { LoginScreen } from '../screens/LoginScreen'
 import { LogoutScreen } from '../screens/LogoutScreen'
+import { ThankYou } from '../screens/ThankYouScreen'
 
 const Stack = createNativeStackNavigator()
 
