@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 

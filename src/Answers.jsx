@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  TouchableOpacity,
-  useWindowDimensions,
+  Alert,
   StyleSheet,
-  View,
   Text,
   TextInput,
-  Alert
+  TouchableOpacity,
+  View,
+  useWindowDimensions
 } from 'react-native'
+
 import { fetchAnswers } from './hooks'
 
 export const Answers = ({ questionId, onHandleAnswer, questionType }) => {

@@ -1,14 +1,15 @@
+import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
 import {
+  Keyboard,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Keyboard,
   View
 } from 'react-native'
-import React, { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
-import { useForm } from 'react-hook-form'
+
+import { AuthContext } from '../context/AuthContext'
 import { PassInput } from '../validation/pass_input/PassInput'
 
 export const LogoutScreen = ({ navigation }) => {

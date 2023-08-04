@@ -1,8 +1,8 @@
-import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { HomeScreen } from '../screens/HomeScreen'
+
 import { Quiz } from '../Quiz'
 import { ThankYou } from '../ThankYou'
+import { HomeScreen } from '../screens/HomeScreen'
 import { LoginScreen } from '../screens/LoginScreen'
 import { LogoutScreen } from '../screens/LogoutScreen'
 

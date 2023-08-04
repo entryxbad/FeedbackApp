@@ -4,13 +4,12 @@
  *
  * @format
  */
+import * as Sentry from '@sentry/react-native'
+import axios from 'axios'
 
-import React from 'react'
 //import { useSender } from './src/hooks'
 import { AuthProvider } from './src/context/AuthContext'
 import { AppNav } from './src/navigation/AppNav'
-import axios from 'axios'
-import * as Sentry from '@sentry/react-native'
 
 axios.defaults.headers.common['Accept'] = 'application/json'
 

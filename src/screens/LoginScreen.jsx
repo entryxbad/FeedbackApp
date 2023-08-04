@@ -1,16 +1,17 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import {
+  Keyboard,
   Text,
-  View,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Keyboard
+  View
 } from 'react-native'
-import { AuthContext } from '../context/AuthContext'
 import LinearGradient from 'react-native-linear-gradient'
-import { useForm, Controller } from 'react-hook-form'
-import { PhoneInputField } from '../validation/phone_input/PhoneInputField'
+
+import { AuthContext } from '../context/AuthContext'
 import { PassInputField } from '../validation/pass_input/PassInputField'
+import { PhoneInputField } from '../validation/phone_input/PhoneInputField'
 
 export const LoginScreen = () => {
   const { login } = useContext(AuthContext)

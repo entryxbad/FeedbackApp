@@ -1,6 +1,5 @@
-import React from 'react'
 import { Controller } from 'react-hook-form'
-import { TextInput, Text } from 'react-native'
+import { Text, TextInput } from 'react-native'
 
 export const PassInput = ({
   control,

@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
-import { TouchableOpacity, View, Text } from 'react-native'
-import { AuthContext } from '../context/AuthContext'
-import LinearGradient from 'react-native-linear-gradient'
+import { useContext } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
+import LinearGradient from 'react-native-linear-gradient'
+
+import { AuthContext } from '../context/AuthContext'
 
 export const HomeScreen = ({ navigation }) => {
   const { logout } = useContext(AuthContext)

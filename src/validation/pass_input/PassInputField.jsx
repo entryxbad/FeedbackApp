@@ -1,5 +1,5 @@
-import React from 'react'
 import { Controller } from 'react-hook-form'
+
 import { PassInput } from './PassInput'
 
 export const PassInputField = ({

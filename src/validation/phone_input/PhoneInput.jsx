@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Controller } from 'react-hook-form'
-import MaskInput from 'react-native-mask-input'
 import { Text } from 'react-native'
+import MaskInput from 'react-native-mask-input'
 
 export const PhoneInput = ({
   control,

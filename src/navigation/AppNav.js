@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { AuthContext } from '../context/AuthContext'
-import { AuthStack } from './AuthStack'
-import { AppStack } from './AppStack'
+import { useContext } from 'react'
+
 import Preloader from '../components/Preloader'
+import { AuthContext } from '../context/AuthContext'
+import { AppStack } from './AppStack'
+import { AuthStack } from './AuthStack'
 
 export const AppNav = () => {
   const { isLoading, userToken } = useContext(AuthContext)

@@ -1,5 +1,4 @@
-import { View, Text, ActivityIndicator } from 'react-native'
-import React from 'react'
+import { ActivityIndicator, Text, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 const Preloader = () => {
@@ -11,7 +10,7 @@ const Preloader = () => {
       style={{ flex: 1 }}
     >
       <View className='flex-1 justify-center items-center'>
-        <ActivityIndicator size={50} color='#1a75d4' />
+        <ActivityIndicator size={50} color={'#1a75d4'} />
         <Text className='color-black text-3xl py-5'>
           Идет загрузка данных...
         </Text>

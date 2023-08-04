@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
-  Text,
-  View,
-  StyleSheet,
-  useWindowDimensions,
+  Keyboard,
   KeyboardAvoidingView,
+  StyleSheet,
+  Text,
   TouchableWithoutFeedback,
-  Keyboard
+  View,
+  useWindowDimensions
 } from 'react-native'
-
-import { getItem, sendAnswers, useQuiz } from './hooks'
 import LinearGradient from 'react-native-linear-gradient'
+
 import { Answers } from './Answers'
 import Preloader from './components/Preloader'
+import { getItem, sendAnswers, useQuiz } from './hooks'
 
 export const Quiz = ({ navigation }) => {
   const { styles } = useStyle()

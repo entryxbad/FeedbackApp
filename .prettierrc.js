@@ -5,4 +5,7 @@ module.exports = {
   jsxSingleQuote: true,
   arrowParens: 'always',
   semi: false,
-};
+  importOrder: ['^@core/(.*)$', '^@server/(.*)$', '^@ui/(.*)$', '^[./]'],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true
+}
