@@ -1,10 +1,10 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
 
 import Button from '../components/Button'
 import { AuthContext } from '../context/AuthContext'
+import { loadRobotDataFromStorage } from '../utils/storageUtils'
 import { PassInput } from '../validation/pass_input/PassInput'
 
 export const LogoutScreen = ({ navigation }) => {
@@ -27,43 +27,61 @@ export const LogoutScreen = ({ navigation }) => {
     }
   }
 
+  const [robotData, setRobotData] = useState(null)
+
+  useEffect(() => {
+    const fetchRobotData = async () => {
+      const data = await loadRobotDataFromStorage()
+      setRobotData(data)
+    }
+    fetchRobotData()
+  }, [])
+
   return (
-    <LinearGradient
-      colors={['#009be5', '#eaeff2', '#1976d3']}
-      start={{ x: 1, y: 1 }}
-      end={{ x: 1, y: 0 }}
-      style={{ flex: 1 }}
-    >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View className='flex-1 justify-center items-center'>
-          <Text className='text-black text-6xl'>Выход из учётной записи</Text>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View
+        className='flex-1 justify-center items-center'
+        style={{ backgroundColor: robotData?.backgroundColor }}
+      >
+        <Text
+          className='text-black text-6xl'
+          style={{ color: robotData?.fontColor }}
+        >
+          Выход из учётной записи
+        </Text>
 
-          <PassInput
-            control={control}
-            errors={errors}
-            name='password'
-            rules={{ required: true }}
-          />
+        <PassInput
+          control={control}
+          errors={errors}
+          name='password'
+          rules={{ required: true }}
+        />
 
-          {/* Button exit */}
-          <Button
-            onPress={handleSubmit(handleLogout)}
-            buttonStyle={
-              'border-2 border-[#1a75d4] rounded-2xl w-[40%] mt-7 items-center'
-            }
-            textStyle={'text-[#1a75d4] text-4xl p-4'}
-            text={'Выйти'}
-          />
+        {/* Button exit */}
 
-          {/* Back button */}
-          <Button
-            onPress={() => navigation.navigate('Home')}
-            buttonStyle={'bg-[#1a75d4] w-[40%] items-center mt-8 rounded-2xl'}
-            textStyle={'text-white text-4xl p-4'}
-            text={'Назад'}
-          />
-        </View>
-      </TouchableWithoutFeedback>
-    </LinearGradient>
+        <Button
+          onPress={handleSubmit(handleLogout)}
+          buttonStyle={'rounded-2xl w-[40%] mt-7 items-center'}
+          textStyle={'text-4xl p-4'}
+          text={'Выйти'}
+          style={{
+            color: robotData?.fontColor || '#fff',
+            backgroundColor: robotData?.buttonColor || '#1a75d4'
+          }}
+        />
+
+        {/* Back button */}
+        <Button
+          onPress={() => navigation.navigate('Home')}
+          buttonStyle={'w-[40%] items-center mt-8 rounded-2xl'}
+          textStyle={'text-4xl p-4'}
+          text={'Назад'}
+          style={{
+            color: robotData?.fontColor || '#fff',
+            backgroundColor: robotData?.buttonColor || '#1a75d4'
+          }}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
