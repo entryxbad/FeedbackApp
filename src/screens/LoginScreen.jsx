@@ -101,7 +101,7 @@ export const LoginScreen = () => {
           textStyle={'text-4xl p-4'}
           text={'Войти'}
           style={{
-            color: robotData?.fontColor || '#fff',
+            color: robotData?.fontColor || '#000',
             backgroundColor: robotData?.buttonColor || '#1a75d4'
           }}
         />

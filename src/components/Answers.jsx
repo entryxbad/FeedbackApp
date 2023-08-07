@@ -10,11 +10,13 @@ import {
 } from 'react-native'
 
 import { fetchAnswers } from '../hooks'
+import { loadRobotDataFromStorage } from '../utils/storageUtils'
 
 export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
   const { styles } = useStyle()
   const [data, setData] = useState([])
   const [answerValue, setAnswerValue] = useState('')
+  const [robotData, setRobotData] = useState(null)
 
   useEffect(() => {
     // Делаем запрос на список ответов
@@ -27,6 +29,14 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
         console.log('AnswerComp', error)
       })
   }, [questionId])
+
+  useEffect(() => {
+    const fetchRobotData = async () => {
+      const data = await loadRobotDataFromStorage()
+      setRobotData(data)
+    }
+    fetchRobotData()
+  }, [])
 
   console.log('QUEST ID', questionId)
 
@@ -58,10 +68,20 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
           {data.map((option) => (
             <TouchableOpacity
               key={option.id}
-              style={styles.option}
+              style={[
+                styles.option,
+                { backgroundColor: robotData?.buttonColor || '#1a75d4' }
+              ]}
               onPress={() => onHandleAnswer(option)}
             >
-              <Text style={styles.questions}>{option.text}</Text>
+              <Text
+                style={[
+                  styles.questions,
+                  { color: robotData?.fontColor || '#000' }
+                ]}
+              >
+                {option.text}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -73,17 +93,37 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             onPress={() => {
               onHandleAnswer({ text: String('Да') })
             }}
-            style={styles.button}
+            style={[
+              styles.option,
+              { backgroundColor: robotData?.buttonColor || '#1a75d4' }
+            ]}
           >
-            <Text style={styles.title}>Да</Text>
+            <Text
+              style={[
+                styles.questions,
+                { color: robotData?.fontColor || '#000' }
+              ]}
+            >
+              Да
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               onHandleAnswer({ text: String('Нет') })
             }}
-            style={styles.button}
+            style={[
+              styles.option,
+              { backgroundColor: robotData?.buttonColor || '#1a75d4' }
+            ]}
           >
-            <Text style={styles.title}>Нет</Text>
+            <Text
+              style={[
+                styles.questions,
+                { color: robotData?.fontColor || '#000' }
+              ]}
+            >
+              Нет
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -98,8 +138,20 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             keyboardType='numeric'
             maxLength={2}
           />
-          <TouchableOpacity onPress={checkInputSendler} style={styles.button}>
-            <Text style={styles.title}>Отправить</Text>
+          <TouchableOpacity
+            onPress={checkInputSendler}
+            style={[
+              styles.button,
+              {
+                backgroundColor: robotData?.buttonColor || '#1a75d4'
+              }
+            ]}
+          >
+            <Text
+              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
+            >
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -124,8 +176,20 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             maxLength={10}
           />
 
-          <TouchableOpacity onPress={checkInputSendler} style={styles.button}>
-            <Text style={styles.title}>Отправить</Text>
+          <TouchableOpacity
+            onPress={checkInputSendler}
+            style={[
+              styles.button,
+              {
+                backgroundColor: robotData?.buttonColor || '#1a75d4'
+              }
+            ]}
+          >
+            <Text
+              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
+            >
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -148,8 +212,20 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             maxLength={18}
           />
 
-          <TouchableOpacity onPress={checkInputSendler} style={styles.button}>
-            <Text style={styles.title}>Отправить</Text>
+          <TouchableOpacity
+            onPress={checkInputSendler}
+            style={[
+              styles.button,
+              {
+                backgroundColor: robotData?.buttonColor || '#1a75d4'
+              }
+            ]}
+          >
+            <Text
+              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
+            >
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -228,8 +304,20 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             keyboardType='email-address'
           />
 
-          <TouchableOpacity onPress={checkEmailFormat} style={styles.button}>
-            <Text style={styles.title}>Отправить</Text>
+          <TouchableOpacity
+            onPress={checkEmailFormat}
+            style={[
+              styles.button,
+              {
+                backgroundColor: robotData?.buttonColor || '#1a75d4'
+              }
+            ]}
+          >
+            <Text
+              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
+            >
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -243,8 +331,20 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             placeholder='Введите ФИО'
           />
 
-          <TouchableOpacity onPress={checkInputSendler} style={styles.button}>
-            <Text style={styles.title}>Отправить</Text>
+          <TouchableOpacity
+            onPress={checkInputSendler}
+            style={[
+              styles.button,
+              {
+                backgroundColor: robotData?.buttonColor || '#1a75d4'
+              }
+            ]}
+          >
+            <Text
+              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
+            >
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )

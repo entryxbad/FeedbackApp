@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -6,9 +6,9 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
 
 import { getItem, sendAnswers, useQuiz } from '../hooks'
+import { loadRobotDataFromStorage } from '../utils/storageUtils'
 import { Answers } from './Answers'
 import Preloader from './Preloader'
 
@@ -16,6 +16,15 @@ export const Quiz = ({ navigation }) => {
   const [data, loading, error, append] = useQuiz()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   // const [answers, setAnswers] = useState([])
+  const [robotData, setRobotData] = useState(null)
+
+  useEffect(() => {
+    const fetchRobotData = async () => {
+      const data = await loadRobotDataFromStorage()
+      setRobotData(data)
+    }
+    fetchRobotData()
+  }, [])
 
   const currentQuestion = data[currentQuestionIndex]
 
@@ -66,32 +75,33 @@ export const Quiz = ({ navigation }) => {
   }
 
   console.log('CURRENT:', currentQuestion)
+
   return (
-    <LinearGradient
-      colors={['#009be5', '#fff', '#1976d3']}
-      start={{ x: 1, y: 1 }}
-      end={{ x: 1, y: 0 }}
-      style={{ flex: 1 }}
-    >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView
-          behavior='height'
-          className='flex-1 w-full h-full justify-center items-center p-1'
-        >
-          <View>
-            <Text className='rounded-xl text-black text-4xl text-center mb-6 p-5 border-2 border-[#1a75d4]'>
-              {currentQuestion.text}
-            </Text>
-            <Answers
-              questionId={currentQuestion.id}
-              onHandleAnswer={handleAnswer}
-              questionType={currentQuestion.type}
-              onSkip={nextQuestion}
-              key={currentQuestion.id}
-            />
-          </View>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </LinearGradient>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingView
+        behavior='height'
+        className='flex-1 w-full h-full justify-center items-center p-1'
+        style={{ backgroundColor: robotData?.backgroundColor }}
+      >
+        <View>
+          <Text
+            className='rounded-xl text-4xl text-center mb-6 p-5 border-2'
+            style={{
+              borderColor: robotData?.buttonColor || '#1a75d4',
+              color: robotData?.fontColor || '#000'
+            }}
+          >
+            {currentQuestion.text}
+          </Text>
+          <Answers
+            questionId={currentQuestion.id}
+            onHandleAnswer={handleAnswer}
+            questionType={currentQuestion.type}
+            onSkip={nextQuestion}
+            key={currentQuestion.id}
+          />
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   )
 }

@@ -23,11 +23,15 @@ export const HomeScreen = ({ navigation }) => {
       className='flex-1 items-center justify-center'
       style={{ backgroundColor: robotData?.backgroundColor }}
     >
-      {/* Logo */}
-      <View>
-        <Image source={{ uri: robotData?.logo }} />
+      {/* Logo //FIXME*/}
+      <View className='flex-1 absolute items-center justify-center'>
+        <Image
+          className='w-full h-full object-cover'
+          source={{
+            uri: `https://robominds.soft-servis.ru/${robotData?.logo}`
+          }}
+        />
       </View>
-
       {/* Button start */}
       <AnimatedButton
         onPress={() => navigation.navigate('Questions')}
@@ -38,10 +42,9 @@ export const HomeScreen = ({ navigation }) => {
         text={'Начать опрос'}
         style={{
           borderColor: robotData?.buttonColor || '#1a75d4',
-          color: robotData?.fontColor || '#fff'
+          color: robotData?.fontColor || '#000'
         }}
       />
-
       {/* Button exit */}
       <Button
         onPress={() => navigation.navigate('Logout')}
@@ -49,9 +52,9 @@ export const HomeScreen = ({ navigation }) => {
         buttonStyle={'top-56'}
         textStyle={'text-4xl py-4 px-4'}
         style={{
-          color: robotData?.fontColor || '#fff',
+          color: robotData?.fontColor || '#000',
           backgroundColor: robotData?.buttonColor || '#1a75d4',
-          borderRadius: 10
+          borderRadius: 20
         }}
       />
     </View>

@@ -58,14 +58,13 @@ export const LogoutScreen = ({ navigation }) => {
         />
 
         {/* Button exit */}
-
         <Button
           onPress={handleSubmit(handleLogout)}
           buttonStyle={'rounded-2xl w-[40%] mt-7 items-center'}
           textStyle={'text-4xl p-4'}
           text={'Выйти'}
           style={{
-            color: robotData?.fontColor || '#fff',
+            color: robotData?.fontColor || '#000',
             backgroundColor: robotData?.buttonColor || '#1a75d4'
           }}
         />
@@ -77,7 +76,7 @@ export const LogoutScreen = ({ navigation }) => {
           textStyle={'text-4xl p-4'}
           text={'Назад'}
           style={{
-            color: robotData?.fontColor || '#fff',
+            color: robotData?.fontColor || '#000',
             backgroundColor: robotData?.buttonColor || '#1a75d4'
           }}
         />
