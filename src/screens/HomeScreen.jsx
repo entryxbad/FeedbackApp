@@ -3,6 +3,8 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import LinearGradient from 'react-native-linear-gradient'
 
+import AnimatedButton from '../components/AnimatedButton'
+import Button from '../components/Button'
 import { AuthContext } from '../context/AuthContext'
 
 export const HomeScreen = ({ navigation }) => {
@@ -17,29 +19,23 @@ export const HomeScreen = ({ navigation }) => {
     >
       <View className='flex-1 items-center justify-center'>
         {/* Button start */}
-        <TouchableOpacity
-          className='absolute items-center rounded-2xl w-[60%] border-l-2 border-r-2 border-t-4 border-[#1a75d4] py-1'
+
+        <AnimatedButton
           onPress={() => navigation.navigate('Questions')}
-        >
-          <Animatable.View
-            animation={'pulse'}
-            easing={'ease-in-out'}
-            iterationCount={'infinite'}
-            className='w-[95%] justify-center items-center bg-[#1a75d4] rounded-2xl'
-          >
-            <Text className='text-white text-4xl py-4'>Начать опрос</Text>
-          </Animatable.View>
-        </TouchableOpacity>
+          buttonStyle={
+            'absolute items-center rounded-2xl w-[60%] border-l-2 border-r-2 border-t-4 border-[#1a75d4] py-1'
+          }
+          textStyle={'text-white text-4xl py-4'}
+          text={'Начать опрос'}
+        />
 
         {/* Button exit */}
-        <TouchableOpacity
+        <Button
           onPress={() => navigation.navigate('Logout')}
-          className='border-2 border-[#1a75d4] rounded-2xl top-56'
-        >
-          <Text className='text-[#1a75d4] text-4xl py-4 px-4'>
-            Выйти из аккаунта
-          </Text>
-        </TouchableOpacity>
+          text={'Выйти из аккаунта'}
+          buttonStyle={'border-2 border-[#1a75d4] rounded-2xl top-56'}
+          textStyle={'text-[#1a75d4] text-4xl py-4 px-4'}
+        />
       </View>
     </LinearGradient>
   )

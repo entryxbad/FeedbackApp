@@ -1,14 +1,9 @@
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  Keyboard,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View
-} from 'react-native'
+import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
+import Button from '../components/Button'
 import { AuthContext } from '../context/AuthContext'
 import { PassInput } from '../validation/pass_input/PassInput'
 
@@ -49,19 +44,24 @@ export const LogoutScreen = ({ navigation }) => {
             name='password'
             rules={{ required: true }}
           />
-          <TouchableOpacity
-            className='border-2 border-[#1a75d4] rounded-2xl w-[40%] mt-7 items-center'
-            onPress={handleSubmit(handleLogout)}
-          >
-            <Text className='text-[#1a75d4] text-4xl p-4'>Выйти</Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            className='bg-[#1a75d4] w-[40%] items-center mt-8 rounded-2xl'
+          {/* Button exit */}
+          <Button
+            onPress={handleSubmit(handleLogout)}
+            buttonStyle={
+              'border-2 border-[#1a75d4] rounded-2xl w-[40%] mt-7 items-center'
+            }
+            textStyle={'text-[#1a75d4] text-4xl p-4'}
+            text={'Выйти'}
+          />
+
+          {/* Back button */}
+          <Button
             onPress={() => navigation.navigate('Home')}
-          >
-            <Text className='text-white text-4xl p-4'>Назад</Text>
-          </TouchableOpacity>
+            buttonStyle={'bg-[#1a75d4] w-[40%] items-center mt-8 rounded-2xl'}
+            textStyle={'text-white text-4xl p-4'}
+            text={'Назад'}
+          />
         </View>
       </TouchableWithoutFeedback>
     </LinearGradient>

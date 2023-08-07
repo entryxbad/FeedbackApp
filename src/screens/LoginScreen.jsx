@@ -1,14 +1,9 @@
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import {
-  Keyboard,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View
-} from 'react-native'
+import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
+import Button from '../components/Button'
 import { AuthContext } from '../context/AuthContext'
 import { PassInputField } from '../validation/pass_input/PassInputField'
 import { PhoneInputField } from '../validation/phone_input/PhoneInputField'
@@ -87,13 +82,13 @@ export const LoginScreen = () => {
             defaultValue=''
           />
 
-          <TouchableOpacity
-            className='bg-[#1a75d4] w-[40%]
-            mt-7 rounded-2xl items-center'
+          {/* Button Enter */}
+          <Button
             onPress={handleSubmit(onSubmit)}
-          >
-            <Text className='text-white text-4xl p-4'>Войти</Text>
-          </TouchableOpacity>
+            buttonStyle={'bg-[#1a75d4] w-[40%] mt-7 rounded-2xl items-center'}
+            textStyle={'text-white text-4xl p-4'}
+            text={'Войти'}
+          />
         </View>
       </TouchableWithoutFeedback>
     </LinearGradient>
