@@ -8,8 +8,20 @@ import {
   View,
   useWindowDimensions
 } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 
 import { fetchAnswers } from '../hooks'
+import {
+  Birthday,
+  Cake,
+  Email,
+  FiveRating,
+  Name,
+  Opinion,
+  SimpleQuestion,
+  Telephone,
+  TenRating
+} from '../utils/images'
 import { loadRobotDataFromStorage } from '../utils/storageUtils'
 
 export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
@@ -65,6 +77,16 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
     case 'Мнение':
       return (
         <View className='w-[950px]'>
+          <Animatable.Image
+            animation={'pulse'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={Opinion}
+            className='w-96 h-96 object-cover absolute top-[-420px] left-1/4'
+            resizeMode='contain'
+          />
+
           {data.map((option) => (
             <TouchableOpacity
               key={option.id}
@@ -80,12 +102,22 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       )
     case 'Простой вопрос':
       return (
-        <View className='w-[650px] space-y-5'>
+        <View className='w-[650px]'>
+          <Animatable.Image
+            animation={'pulse'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={SimpleQuestion}
+            className='w-full h-96 object-cover absolute top-[-460px] -left-1'
+            resizeMode='contain'
+          />
+
           <TouchableOpacity
             onPress={() => {
               onHandleAnswer({ text: String('Да') })
             }}
-            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
+            className='bg-white rounded-2xl items-center my-8 mt-1 shadow-lg'
           >
             <Text className='text-[#5175ed] text-4xl p-3.5 font-RoundedNormal'>
               Да
@@ -107,6 +139,15 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
     case 'Возраст':
       return (
         <View className='w-[650px]'>
+          <Animatable.Image
+            animation={'pulse'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={Cake}
+            className='w-[500px] h-96 object-cover absolute top-[-460px] left-[90px]'
+            resizeMode='contain'
+          />
           <TextInput
             className='border-2 rounded-2xl border-white my-8 p-3 text-2xl font-RoundedNormal text-white'
             onChangeText={(text) => setAnswerValue(text)}
@@ -129,6 +170,16 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
     case 'Дата рождения':
       return (
         <View>
+          <Animatable.Image
+            animation={'pulse'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={Birthday}
+            className='w-full h-96 object-cover absolute top-[-460px] left-1'
+            resizeMode='contain'
+          />
+
           <TextInput
             className='border-2 rounded-2xl border-white my-8 p-3 text-2xl text-white font-RoundedNormal'
             onChangeText={(text) => {
@@ -161,6 +212,16 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
     case 'Номер телефона':
       return (
         <View>
+          <Animatable.Image
+            animation={'wobble'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={Telephone}
+            className='w-96 h-96 object-cover absolute top-[-470px] left-1/4'
+            resizeMode='contain'
+          />
+
           <TextInput
             className='border-2 rounded-2xl border-white my-8 p-3 text-2xl font-RoundedNormal text-white'
             onChange={(event) => {
@@ -172,7 +233,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
               setAnswerValue(reg)
             }}
             value={answerValue}
-            placeholder='Введите номер телефона'
+            placeholder='+7 (___) ___-__-__'
             placeholderTextColor={'white'}
             keyboardType='numeric'
             maxLength={18}
@@ -200,6 +261,16 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
 
       return (
         <View className='flex-row mt-3'>
+          <Animatable.Image
+            animation={'shake'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={FiveRating}
+            className='w-full h-96 object-cover absolute top-[-510px] left-1'
+            resizeMode='contain'
+          />
+
           {Array.from({ length: 6 }, (_, index) => (
             <TouchableOpacity
               key={index}
@@ -239,6 +310,16 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
 
       return (
         <View className='flex-row mt-3'>
+          <Animatable.Image
+            animation={'shake'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={TenRating}
+            className='w-full h-96 object-cover absolute top-[-490px] left-1'
+            resizeMode='contain'
+          />
+
           {Array.from({ length: 11 }, (_, index) => (
             <TouchableOpacity
               key={index}
@@ -260,13 +341,24 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
     case 'email':
       return (
         <View className='w-[650px]'>
+          <Animatable.Image
+            animation={'pulse'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={Email}
+            className='w-full h-96 object-cover absolute top-[-455px] left-[50px]'
+            resizeMode='contain'
+          />
+
           <TextInput
-            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl text-white font-RoundedNormal'
+            className='border-2 rounded-2xl border-white my-6 p-3 text-2xl text-white font-RoundedNormal'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите свой e-mail'
             placeholderTextColor={'white'}
             keyboardType='email-address'
+            autoCapitalize='none'
           />
 
           <TouchableOpacity
@@ -282,8 +374,18 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
     case 'ФИО':
       return (
         <View className='w-[650px]'>
+          <Animatable.Image
+            animation={'pulse'}
+            duration={5000}
+            easing={'ease-in-out'}
+            iterationCount={'infinite'}
+            source={Name}
+            className='w-full h-80 object-cover absolute top-[-430px] left-1'
+            resizeMode='contain'
+          />
+
           <TextInput
-            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl font-RoundedNormal text-white'
+            className='border-2 rounded-2xl border-white my-6 p-3 text-2xl font-RoundedNormal text-white'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите ФИО'
@@ -374,7 +476,23 @@ const useStyle = () => {
       marginHorizontal: 5,
       borderRadius: 5,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      position: 'relative'
+    },
+    star: {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      transform: [{ rotate: '-45deg' }],
+      borderTopWidth: 1,
+      borderColor: 'black',
+      position: 'absolute',
+      width: 0,
+      height: 0,
+      borderTopWidth: width * 0.04,
+      borderRightWidth: width * 0.08,
+      borderBottomWidth: width * 0.04,
+      borderColor: 'black'
     },
     ratingButtonText: {
       fontSize: width * 0.03,

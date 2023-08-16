@@ -87,7 +87,7 @@ export const Quiz = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <KeyboardAvoidingView
           behavior='height'
-          className='flex-1 w-full h-full justify-center items-center p-1'
+          className='flex-1 w-full h-full justify-center items-center p-1 mt-[200px]'
         >
           <View>
             <Text className='rounded-xl text-4xl text-center mb-6 p-5 border-2 text-white border-white font-RoundedNormal'>
