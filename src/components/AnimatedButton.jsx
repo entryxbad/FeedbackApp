@@ -21,10 +21,7 @@ const AnimatedButton = ({ onPress, buttonStyle, textStyle, text, style }) => {
         animation={'pulse'}
         easing={'ease-in-out'}
         iterationCount={'infinite'}
-        className={`w-[95%] justify-center items-center rounded-2xl ${(style = {
-          backgroundColor: robotData?.buttonColor || '#1a75d4',
-          color: robotData?.fontColor || '#fff'
-        })}}`}
+        className='w-[95%] justify-center items-center rounded-2xl bg-white shadow-lg'
         style={style}
       >
         <Text className={textStyle} style={style}>

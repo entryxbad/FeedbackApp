@@ -64,102 +64,65 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
   switch (questionType) {
     case 'Мнение':
       return (
-        <View>
+        <View className='w-[950px]'>
           {data.map((option) => (
             <TouchableOpacity
               key={option.id}
-              style={[
-                styles.option,
-                { backgroundColor: robotData?.buttonColor || '#1a75d4' }
-              ]}
+              className='bg-white rounded-2xl mb-4 text-center p-2 shadow-lg'
               onPress={() => onHandleAnswer(option)}
             >
-              <Text
-                style={[
-                  styles.questions,
-                  { color: robotData?.fontColor || '#000' }
-                ]}
-              >
-                {option.text}
-              </Text>
+              <Text className='text-[#5175ed] text-4xl p-2'>{option.text}</Text>
             </TouchableOpacity>
           ))}
         </View>
       )
     case 'Простой вопрос':
       return (
-        <View>
+        <View className='w-[650px] space-y-5'>
           <TouchableOpacity
             onPress={() => {
               onHandleAnswer({ text: String('Да') })
             }}
-            style={[
-              styles.option,
-              { backgroundColor: robotData?.buttonColor || '#1a75d4' }
-            ]}
+            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text
-              style={[
-                styles.questions,
-                { color: robotData?.fontColor || '#000' }
-              ]}
-            >
-              Да
-            </Text>
+            <Text className='text-[#5175ed] text-4xl p-3.5'>Да</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               onHandleAnswer({ text: String('Нет') })
             }}
-            style={[
-              styles.option,
-              { backgroundColor: robotData?.buttonColor || '#1a75d4' }
-            ]}
+            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text
-              style={[
-                styles.questions,
-                { color: robotData?.fontColor || '#000' }
-              ]}
-            >
-              Нет
-            </Text>
+            <Text className='text-[#5175ed] text-4xl p-3.5'>Нет</Text>
           </TouchableOpacity>
         </View>
       )
+
     case 'Возраст':
       return (
-        <View>
+        <View className='w-[650px]'>
           <TextInput
-            style={styles.input}
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите ваш возраст'
+            placeholderTextColor={'white'}
             keyboardType='numeric'
             maxLength={2}
           />
           <TouchableOpacity
             onPress={checkInputSendler}
-            style={[
-              styles.button,
-              {
-                backgroundColor: robotData?.buttonColor || '#1a75d4'
-              }
-            ]}
+            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text
-              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
-            >
-              Отправить
-            </Text>
+            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
           </TouchableOpacity>
         </View>
       )
     case 'Дата рождения':
       return (
-        <View>
+        <View className='w-[650px]'>
           <TextInput
-            style={styles.input}
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
             onChangeText={(text) => {
               if (
                 (text.length === 2 && !text.includes('.')) ||
@@ -172,24 +135,16 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             }}
             value={answerValue}
             placeholder='Введите дату рождения'
+            placeholderTextColor={'white'}
             keyboardType='numeric'
             maxLength={10}
           />
 
           <TouchableOpacity
             onPress={checkInputSendler}
-            style={[
-              styles.button,
-              {
-                backgroundColor: robotData?.buttonColor || '#1a75d4'
-              }
-            ]}
+            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text
-              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
-            >
-              Отправить
-            </Text>
+            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
           </TouchableOpacity>
         </View>
       )
@@ -197,7 +152,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       return (
         <View>
           <TextInput
-            style={styles.input}
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
             onChange={(event) => {
               const text = event.nativeEvent.text
               const reg = text.replace(
@@ -208,24 +163,16 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             }}
             value={answerValue}
             placeholder='Введите номер телефона'
+            placeholderTextColor={'white'}
             keyboardType='numeric'
             maxLength={18}
           />
 
           <TouchableOpacity
             onPress={checkInputSendler}
-            style={[
-              styles.button,
-              {
-                backgroundColor: robotData?.buttonColor || '#1a75d4'
-              }
-            ]}
+            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text
-              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
-            >
-              Отправить
-            </Text>
+            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
           </TouchableOpacity>
         </View>
       )
@@ -295,56 +242,40 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       )
     case 'email':
       return (
-        <View>
+        <View className='w-[650px]'>
           <TextInput
-            style={styles.input}
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите свой e-mail'
+            placeholderTextColor={'white'}
             keyboardType='email-address'
           />
 
           <TouchableOpacity
             onPress={checkEmailFormat}
-            style={[
-              styles.button,
-              {
-                backgroundColor: robotData?.buttonColor || '#1a75d4'
-              }
-            ]}
+            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text
-              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
-            >
-              Отправить
-            </Text>
+            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
           </TouchableOpacity>
         </View>
       )
     case 'ФИО':
       return (
-        <View>
+        <View className='w-[650px]'>
           <TextInput
-            style={styles.input}
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите ФИО'
+            placeholderTextColor={'white'}
           />
 
           <TouchableOpacity
             onPress={checkInputSendler}
-            style={[
-              styles.button,
-              {
-                backgroundColor: robotData?.buttonColor || '#1a75d4'
-              }
-            ]}
+            className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text
-              style={[styles.title, { color: robotData?.fontColor || '#000' }]}
-            >
-              Отправить
-            </Text>
+            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
           </TouchableOpacity>
         </View>
       )

@@ -23,16 +23,15 @@ export const ThankYou = ({ navigation }) => {
   }, [])
 
   return (
-    <View
-      className='flex-1 items-center justify-center'
-      style={{ backgroundColor: robotData?.backgroundColor }}
+    <LinearGradient
+      className='flex-1 relative'
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      colors={['#3490f3', '#4283f1', '#5175ed']}
     >
-      <Text
-        className='text-4xl'
-        style={{ color: robotData?.fontColor || '#000' }}
-      >
-        Спасибо за ваши ответы!
-      </Text>
-    </View>
+      <View className='flex-1 items-center justify-center'>
+        <Text className='text-4xl text-white'>Спасибо за ваши ответы!</Text>
+      </View>
+    </LinearGradient>
   )
 }

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { Image, View } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 
 import AnimatedButton from '../components/AnimatedButton'
 import Button from '../components/Button'
@@ -19,49 +20,44 @@ export const HomeScreen = ({ navigation }) => {
   }, [])
 
   return (
-    <View
+    <LinearGradient
       className='flex-1 relative'
-      style={{ backgroundColor: robotData?.backgroundColor }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      colors={['#3490f3', '#4283f1', '#5175ed']}
     >
-      {/* Logo */}
-      <View className='flex-row relative p-4 justify-center'>
-        <Image
-          className='w-96 h-80 object-cover rounded-2xl'
-          source={{
-            uri: `https://robominds.soft-servis.ru/${robotData?.logo}`
-          }}
-        />
-      </View>
+      <View className='flex-1 relative'>
+        {/* Logo */}
+        <View className='flex-row relative p-4 justify-center'>
+          <Image
+            className='w-96 h-80 object-cover rounded-2xl'
+            source={{
+              uri: `https://robominds.soft-servis.ru/${robotData?.logo}`
+            }}
+          />
+        </View>
 
-      <View className='flex-col items-center justify-center mt-5'>
-        {/* Button start */}
-        <AnimatedButton
-          onPress={() => navigation.navigate('Questions')}
-          buttonStyle={
-            'absolute items-center rounded-2xl border-l-2 border-r-2 border-t-4 w-[60%] py-1'
-          }
-          textStyle={'text-4xl py-4'}
-          text={'Начать опрос'}
-          style={{
-            borderColor: robotData?.buttonColor || '#1a75d4',
-            color: robotData?.fontColor || '#000'
-          }}
-        />
+        <View className='flex-col items-center justify-center mt-5'>
+          {/* Button start */}
+          <AnimatedButton
+            onPress={() => navigation.navigate('Questions')}
+            buttonStyle={
+              'absolute items-center rounded-2xl border-l-2 border-r-2 border-t-4 w-[60%] py-1 border-white'
+            }
+            textStyle={'text-4xl py-4 text-[#5175ed]'}
+            text={'Начать опрос'}
+          />
 
-        {/* Button exit */}
-        <Button
-          onPress={() => navigation.navigate('Logout')}
-          text={'Выйти из аккаунта'}
-          buttonStyle={'top-56'}
-          textStyle={'text-4xl py-4 px-4'}
-          style={{
-            color: robotData?.fontColor || '#000',
-            backgroundColor: robotData?.buttonColor || '#1a75d4',
-            borderRadius: 20
-          }}
-        />
+          {/* Button exit */}
+          <Button
+            onPress={() => navigation.navigate('Logout')}
+            text={'Выйти из аккаунта'}
+            buttonStyle={'top-56 rounded-2xl bg-white shadow-lg'}
+            textStyle={'text-4xl py-4 px-4 text-[#5175ed]'}
+          />
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ActivityIndicator, Text, View } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 
 import { loadRobotDataFromStorage } from '../utils/storageUtils'
 
@@ -15,20 +16,19 @@ const Preloader = () => {
   }, [])
 
   return (
-    <View
-      className='flex-1 justify-center items-center'
-      style={{ backgroundColor: robotData?.backgroundColor }}
+    <LinearGradient
+      className='flex-1 relative'
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      colors={['#3490f3', '#4283f1', '#5175ed']}
     >
-      <ActivityIndicator size={50} color={robotData?.fontColor || '#000'} />
-      <Text
-        className='text-3xl py-5'
-        style={{
-          color: robotData?.fontColor || '#000'
-        }}
-      >
-        Идет загрузка данных...
-      </Text>
-    </View>
+      <View className='flex-1 justify-center items-center'>
+        <ActivityIndicator size={50} color={'white'} />
+        <Text className='text-3xl py-5 text-white'>
+          Идет загрузка данных...
+        </Text>
+      </View>
+    </LinearGradient>
   )
 }
 

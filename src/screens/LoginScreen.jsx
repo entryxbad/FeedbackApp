@@ -97,7 +97,7 @@ export const LoginScreen = () => {
           <Button
             onPress={handleSubmit(onSubmit)}
             buttonStyle={
-              'w-[40%] mt-7 rounded-2xl items-center bg-white shadow'
+              'w-[40%] mt-7 rounded-2xl items-center bg-white shadow-lg'
             }
             textStyle={'text-4xl p-4 text-[#5175ed]'}
             text={'Войти'}

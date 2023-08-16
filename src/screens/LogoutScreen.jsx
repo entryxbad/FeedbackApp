@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 
 import Button from '../components/Button'
 import { AuthContext } from '../context/AuthContext'
@@ -38,49 +39,44 @@ export const LogoutScreen = ({ navigation }) => {
   }, [])
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View
-        className='flex-1 justify-center items-center'
-        style={{ backgroundColor: robotData?.backgroundColor }}
-      >
-        <Text
-          className='text-black text-6xl'
-          style={{ color: robotData?.fontColor }}
-        >
-          Выход из учётной записи
-        </Text>
+    <LinearGradient
+      className='flex-1 relative'
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      colors={['#3490f3', '#4283f1', '#5175ed']}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View className='flex-1 justify-center items-center'>
+          <Text className='text-white text-6xl'>Выход из учётной записи</Text>
 
-        <PassInput
-          control={control}
-          errors={errors}
-          name='password'
-          rules={{ required: true }}
-        />
+          <PassInput
+            control={control}
+            errors={errors}
+            name='password'
+            rules={{ required: true }}
+          />
 
-        {/* Button exit */}
-        <Button
-          onPress={handleSubmit(handleLogout)}
-          buttonStyle={'rounded-2xl w-[40%] mt-7 items-center'}
-          textStyle={'text-4xl p-4'}
-          text={'Выйти'}
-          style={{
-            color: robotData?.fontColor || '#000',
-            backgroundColor: robotData?.buttonColor || '#1a75d4'
-          }}
-        />
+          {/* Button exit */}
+          <Button
+            onPress={handleSubmit(handleLogout)}
+            buttonStyle={
+              'rounded-2xl w-[40%] mt-7 items-center bg-white shadow-lg'
+            }
+            textStyle={'text-4xl p-4 text-[#5175ed]'}
+            text={'Выйти'}
+          />
 
-        {/* Back button */}
-        <Button
-          onPress={() => navigation.navigate('Home')}
-          buttonStyle={'w-[40%] items-center mt-8 rounded-2xl'}
-          textStyle={'text-4xl p-4'}
-          text={'Назад'}
-          style={{
-            color: robotData?.fontColor || '#000',
-            backgroundColor: robotData?.buttonColor || '#1a75d4'
-          }}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+          {/* Back button */}
+          <Button
+            onPress={() => navigation.navigate('Home')}
+            buttonStyle={
+              'w-[40%] items-center mt-8 rounded-2xl bg-white shadow-lg'
+            }
+            textStyle={'text-4xl p-4 text-[#5175ed]'}
+            text={'Назад'}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    </LinearGradient>
   )
 }

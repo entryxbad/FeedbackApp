@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 
 import { getItem, sendAnswers, useQuiz } from '../hooks'
 import { loadRobotDataFromStorage } from '../utils/storageUtils'
@@ -77,31 +78,31 @@ export const Quiz = ({ navigation }) => {
   console.log('CURRENT:', currentQuestion)
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <KeyboardAvoidingView
-        behavior='height'
-        className='flex-1 w-full h-full justify-center items-center p-1'
-        style={{ backgroundColor: robotData?.backgroundColor }}
-      >
-        <View>
-          <Text
-            className='rounded-xl text-4xl text-center mb-6 p-5 border-2'
-            style={{
-              borderColor: robotData?.buttonColor || '#1a75d4',
-              color: robotData?.fontColor || '#000'
-            }}
-          >
-            {currentQuestion.text}
-          </Text>
-          <Answers
-            questionId={currentQuestion.id}
-            onHandleAnswer={handleAnswer}
-            questionType={currentQuestion.type}
-            onSkip={nextQuestion}
-            key={currentQuestion.id}
-          />
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    <LinearGradient
+      className='flex-1 relative'
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      colors={['#3490f3', '#4283f1', '#5175ed']}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <KeyboardAvoidingView
+          behavior='height'
+          className='flex-1 w-full h-full justify-center items-center p-1'
+        >
+          <View>
+            <Text className='rounded-xl text-4xl text-center mb-6 p-5 border-2 text-white border-white'>
+              {currentQuestion.text}
+            </Text>
+            <Answers
+              questionId={currentQuestion.id}
+              onHandleAnswer={handleAnswer}
+              questionType={currentQuestion.type}
+              onSkip={nextQuestion}
+              key={currentQuestion.id}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </LinearGradient>
   )
 }
