@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 
 import Button from '../components/Button'
 import { AuthContext } from '../context/AuthContext'
 import { loadRobotDataFromStorage } from '../utils/storageUtils'
 import { PassInputField } from '../validation/pass_input/PassInputField'
 import { PhoneInputField } from '../validation/phone_input/PhoneInputField'
-import LinearGradient from 'react-native-linear-gradient'
 
 export const LoginScreen = () => {
   const { login } = useContext(AuthContext)
@@ -43,20 +43,12 @@ export const LoginScreen = () => {
     <LinearGradient
       className='flex-1 relative'
       start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-      colors={['#4c669f', '#3b5998', '#192f6a']}
+      end={{ x: 0, y: 1 }}
+      colors={['#3490f3', '#4283f1', '#5175ed']}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View
-          className='flex-1 items-center justify-center'
-          style={{ backgroundColor: robotData?.backgroundColor }}
-        >
-          <Text
-            className='text-black text-6xl'
-            style={{ color: robotData?.fontColor }}
-          >
-            Войдите в учётную запись
-          </Text>
+        <View className='flex-1 items-center justify-center'>
+          <Text className='text-white text-6xl'>Войдите в учётную запись</Text>
           <Controller
             control={control}
             render={() => (
@@ -104,13 +96,11 @@ export const LoginScreen = () => {
           {/* Button Enter */}
           <Button
             onPress={handleSubmit(onSubmit)}
-            buttonStyle={'w-[40%] mt-7 rounded-2xl items-center'}
-            textStyle={'text-4xl p-4'}
+            buttonStyle={
+              'w-[40%] mt-7 rounded-2xl items-center bg-white shadow'
+            }
+            textStyle={'text-4xl p-4 text-[#5175ed]'}
             text={'Войти'}
-            style={{
-              color: robotData?.fontColor || '#000',
-              backgroundColor: robotData?.buttonColor || '#1a75d4'
-            }}
           />
         </View>
       </TouchableWithoutFeedback>
