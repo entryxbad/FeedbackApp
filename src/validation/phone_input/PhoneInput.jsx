@@ -39,6 +39,7 @@ export const PhoneInput = ({
             {...rest}
             value={phone}
             placeholder='+7 (___) ___-__-__'
+            placeholderTextColor={'white'}
             keyboardType='numeric'
             onChangeText={(masked, unmasked) => {
               handleChange(masked, unmasked)

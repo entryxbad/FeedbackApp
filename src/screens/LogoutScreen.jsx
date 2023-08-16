@@ -47,7 +47,9 @@ export const LogoutScreen = ({ navigation }) => {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View className='flex-1 justify-center items-center'>
-          <Text className='text-white text-6xl'>Выход из учётной записи</Text>
+          <Text className='text-white text-6xl font-RoundedNormal'>
+            Выход из учётной записи
+          </Text>
 
           <PassInput
             control={control}
@@ -62,7 +64,7 @@ export const LogoutScreen = ({ navigation }) => {
             buttonStyle={
               'rounded-2xl w-[40%] mt-7 items-center bg-white shadow-lg'
             }
-            textStyle={'text-4xl p-4 text-[#5175ed]'}
+            textStyle={'text-4xl p-4 text-[#5175ed] font-RoundedNormal'}
             text={'Выйти'}
           />
 
@@ -72,7 +74,7 @@ export const LogoutScreen = ({ navigation }) => {
             buttonStyle={
               'w-[40%] items-center mt-8 rounded-2xl bg-white shadow-lg'
             }
-            textStyle={'text-4xl p-4 text-[#5175ed]'}
+            textStyle={'text-4xl p-4 text-[#5175ed] font-RoundedNormal'}
             text={'Назад'}
           />
         </View>

@@ -18,7 +18,7 @@ export const PhoneInputField = ({
           errors={errors}
           name={name}
           rules={{ required: true }}
-          className='border-2 border-[#B3B3B3] rounded-xl w-[40%] text-xl mt-8 p-3'
+          className='border-2 border-white rounded-xl w-[40%] text-xl mt-8 p-3 text-white font-RoundedNormal'
         />
       )}
       name={name}

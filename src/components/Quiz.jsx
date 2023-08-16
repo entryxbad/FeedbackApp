@@ -90,7 +90,7 @@ export const Quiz = ({ navigation }) => {
           className='flex-1 w-full h-full justify-center items-center p-1'
         >
           <View>
-            <Text className='rounded-xl text-4xl text-center mb-6 p-5 border-2 text-white border-white'>
+            <Text className='rounded-xl text-4xl text-center mb-6 p-5 border-2 text-white border-white font-RoundedNormal'>
               {currentQuestion.text}
             </Text>
             <Answers

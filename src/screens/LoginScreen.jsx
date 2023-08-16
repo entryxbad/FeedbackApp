@@ -48,7 +48,9 @@ export const LoginScreen = () => {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View className='flex-1 items-center justify-center'>
-          <Text className='text-white text-6xl'>Войдите в учётную запись</Text>
+          <Text className='text-white text-6xl font-RoundedNormal'>
+            Войдите в учётную запись
+          </Text>
           <Controller
             control={control}
             render={() => (
@@ -99,7 +101,7 @@ export const LoginScreen = () => {
             buttonStyle={
               'w-[40%] mt-7 rounded-2xl items-center bg-white shadow-lg'
             }
-            textStyle={'text-4xl p-4 text-[#5175ed]'}
+            textStyle={'text-4xl p-4 text-[#5175ed] font-RoundedNormal'}
             text={'Войти'}
           />
         </View>

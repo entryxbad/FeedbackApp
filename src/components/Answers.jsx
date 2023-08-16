@@ -71,7 +71,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
               className='bg-white rounded-2xl mb-4 text-center p-2 shadow-lg'
               onPress={() => onHandleAnswer(option)}
             >
-              <Text className='text-[#5175ed] text-4xl p-2'>{option.text}</Text>
+              <Text className='text-[#5175ed] text-4xl p-2 font-RoundedNormal'>
+                {option.text}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -85,7 +87,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             }}
             className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text className='text-[#5175ed] text-4xl p-3.5'>Да</Text>
+            <Text className='text-[#5175ed] text-4xl p-3.5 font-RoundedNormal'>
+              Да
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -93,7 +97,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             }}
             className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text className='text-[#5175ed] text-4xl p-3.5'>Нет</Text>
+            <Text className='text-[#5175ed] text-4xl p-3.5 font-RoundedNormal'>
+              Нет
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -102,7 +108,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       return (
         <View className='w-[650px]'>
           <TextInput
-            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl font-RoundedNormal text-white'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите ваш возраст'
@@ -114,15 +120,17 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             onPress={checkInputSendler}
             className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
+            <Text className='text-[#5175ed] text-4xl p-4 font-RoundedNormal'>
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
     case 'Дата рождения':
       return (
-        <View className='w-[650px]'>
+        <View>
           <TextInput
-            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl text-white font-RoundedNormal'
             onChangeText={(text) => {
               if (
                 (text.length === 2 && !text.includes('.')) ||
@@ -144,7 +152,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             onPress={checkInputSendler}
             className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
+            <Text className='text-[#5175ed] text-4xl p-4 font-RoundedNormal'>
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -152,7 +162,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       return (
         <View>
           <TextInput
-            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl font-RoundedNormal text-white'
             onChange={(event) => {
               const text = event.nativeEvent.text
               const reg = text.replace(
@@ -172,7 +182,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             onPress={checkInputSendler}
             className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
+            <Text className='text-[#5175ed] text-4xl p-4 font-RoundedNormal'>
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -187,7 +199,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       ]
 
       return (
-        <View style={styles.ratingContainer}>
+        <View className='flex-row mt-3'>
           {Array.from({ length: 6 }, (_, index) => (
             <TouchableOpacity
               key={index}
@@ -202,11 +214,14 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
                 }
               ]}
             >
-              <Text style={styles.title}>{index}</Text>
+              <Text className='text-white text-4xl font-RoundedNormal'>
+                {index}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
       )
+
     case 'Оценка до 10':
       const ratingColors = [
         '#ff0000',
@@ -223,7 +238,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       ]
 
       return (
-        <View style={styles.ratingContainer}>
+        <View className='flex-row mt-3'>
           {Array.from({ length: 11 }, (_, index) => (
             <TouchableOpacity
               key={index}
@@ -235,7 +250,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
                 { backgroundColor: ratingColors[index % ratingColors.length] }
               ]}
             >
-              <Text style={styles.titleTen}>{index}</Text>
+              <Text className='text-white text-4xl font-RoundedNormal'>
+                {index}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -244,7 +261,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       return (
         <View className='w-[650px]'>
           <TextInput
-            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl text-white font-RoundedNormal'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите свой e-mail'
@@ -256,7 +273,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             onPress={checkEmailFormat}
             className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
+            <Text className='text-[#5175ed] text-4xl p-4 font-RoundedNormal'>
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )
@@ -264,7 +283,7 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
       return (
         <View className='w-[650px]'>
           <TextInput
-            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl'
+            className='border-2 rounded-2xl border-white my-8 p-3 text-2xl font-RoundedNormal text-white'
             onChangeText={(text) => setAnswerValue(text)}
             value={answerValue}
             placeholder='Введите ФИО'
@@ -275,7 +294,9 @@ export const Answers = ({ questionId, onHandleAnswer, questionType }) => {
             onPress={checkInputSendler}
             className='bg-white rounded-2xl items-center mt-1 shadow-lg'
           >
-            <Text className='text-[#5175ed] text-4xl p-4'>Отправить</Text>
+            <Text className='text-[#5175ed] text-4xl p-4 font-RoundedNormal'>
+              Отправить
+            </Text>
           </TouchableOpacity>
         </View>
       )

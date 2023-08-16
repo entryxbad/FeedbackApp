@@ -44,7 +44,7 @@ export const HomeScreen = ({ navigation }) => {
             buttonStyle={
               'absolute items-center rounded-2xl border-l-2 border-r-2 border-t-4 w-[60%] py-1 border-white'
             }
-            textStyle={'text-4xl py-4 text-[#5175ed]'}
+            textStyle={'text-4xl py-4 text-[#5175ed] font-RoundedNormal'}
             text={'Начать опрос'}
           />
 
@@ -53,7 +53,7 @@ export const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Logout')}
             text={'Выйти из аккаунта'}
             buttonStyle={'top-56 rounded-2xl bg-white shadow-lg'}
-            textStyle={'text-4xl py-4 px-4 text-[#5175ed]'}
+            textStyle={'text-4xl py-4 px-4 text-[#5175ed] font-RoundedNormal'}
           />
         </View>
       </View>

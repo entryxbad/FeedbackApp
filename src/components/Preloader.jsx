@@ -24,7 +24,7 @@ const Preloader = () => {
     >
       <View className='flex-1 justify-center items-center'>
         <ActivityIndicator size={50} color={'white'} />
-        <Text className='text-3xl py-5 text-white'>
+        <Text className='text-3xl py-5 text-white font-RoundedNormal'>
           Идет загрузка данных...
         </Text>
       </View>

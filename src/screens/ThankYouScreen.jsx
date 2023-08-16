@@ -30,7 +30,9 @@ export const ThankYou = ({ navigation }) => {
       colors={['#3490f3', '#4283f1', '#5175ed']}
     >
       <View className='flex-1 items-center justify-center'>
-        <Text className='text-4xl text-white'>Спасибо за ваши ответы!</Text>
+        <Text className='text-4xl text-white font-RoundedNormal'>
+          Спасибо за ваши ответы!
+        </Text>
       </View>
     </LinearGradient>
   )

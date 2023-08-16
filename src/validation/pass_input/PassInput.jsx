@@ -16,9 +16,10 @@ export const PassInput = ({
         render={({ field: { onChange } }) => (
           <TextInput
             {...rest}
-            className='border-2 border-[#B3B3B3] rounded-xl p-3 text-xl w-[40%] mt-8'
+            className='border-2 border-white rounded-xl p-3 text-xl w-[40%] mt-8 text-white font-RoundedNormal'
             secureTextEntry={true}
             placeholder='Пароль'
+            placeholderTextColor={'white'}
             autoCapitalize='none'
             onChangeText={(text) => onChange(text)}
           />
