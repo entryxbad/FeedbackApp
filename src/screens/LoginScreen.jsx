@@ -7,6 +7,7 @@ import { AuthContext } from '../context/AuthContext'
 import { loadRobotDataFromStorage } from '../utils/storageUtils'
 import { PassInputField } from '../validation/pass_input/PassInputField'
 import { PhoneInputField } from '../validation/phone_input/PhoneInputField'
+import LinearGradient from 'react-native-linear-gradient'
 
 export const LoginScreen = () => {
   const { login } = useContext(AuthContext)
@@ -39,73 +40,80 @@ export const LoginScreen = () => {
   }, [])
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View
-        className='flex-1 items-center justify-center'
-        style={{ backgroundColor: robotData?.backgroundColor }}
-      >
-        <Text
-          className='text-black text-6xl'
-          style={{ color: robotData?.fontColor }}
+    <LinearGradient
+      className='flex-1 relative'
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+      colors={['#4c669f', '#3b5998', '#192f6a']}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View
+          className='flex-1 items-center justify-center'
+          style={{ backgroundColor: robotData?.backgroundColor }}
         >
-          Войдите в учётную запись
-        </Text>
-        <Controller
-          control={control}
-          render={() => (
-            <PhoneInputField
-              control={control}
-              errors={errors}
-              name='phone'
-              rules={{
-                required: true,
-                minLength: {
-                  value: 10,
-                  message: 'Некорректный номер телефона'
-                }
-              }}
-              defaultValue=''
-            />
-          )}
-          name='phone'
-          rules={{
-            required: true,
-            minLength: { value: 10, message: 'Некорректный номер телефона' }
-          }}
-          defaultValue=''
-        />
+          <Text
+            className='text-black text-6xl'
+            style={{ color: robotData?.fontColor }}
+          >
+            Войдите в учётную запись
+          </Text>
+          <Controller
+            control={control}
+            render={() => (
+              <PhoneInputField
+                control={control}
+                errors={errors}
+                name='phone'
+                rules={{
+                  required: true,
+                  minLength: {
+                    value: 10,
+                    message: 'Некорректный номер телефона'
+                  }
+                }}
+                defaultValue=''
+              />
+            )}
+            name='phone'
+            rules={{
+              required: true,
+              minLength: { value: 10, message: 'Некорректный номер телефона' }
+            }}
+            defaultValue=''
+          />
 
-        <Controller
-          control={control}
-          render={() => (
-            <PassInputField
-              control={control}
-              errors={errors}
-              name='password'
-              rules={{
-                required: true,
-                minLength: { value: 6, message: 'Неверный пароль' }
-              }}
-              defaultValue=''
-            />
-          )}
-          name='password'
-          rules={{ required: true }}
-          defaultValue=''
-        />
+          <Controller
+            control={control}
+            render={() => (
+              <PassInputField
+                control={control}
+                errors={errors}
+                name='password'
+                rules={{
+                  required: true,
+                  minLength: { value: 6, message: 'Неверный пароль' }
+                }}
+                defaultValue=''
+              />
+            )}
+            name='password'
+            rules={{ required: true }}
+            defaultValue=''
+          />
 
-        {/* Button Enter */}
-        <Button
-          onPress={handleSubmit(onSubmit)}
-          buttonStyle={'w-[40%] mt-7 rounded-2xl items-center'}
-          textStyle={'text-4xl p-4'}
-          text={'Войти'}
-          style={{
-            color: robotData?.fontColor || '#000',
-            backgroundColor: robotData?.buttonColor || '#1a75d4'
-          }}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+          {/* Button Enter */}
+          <Button
+            onPress={handleSubmit(onSubmit)}
+            buttonStyle={'w-[40%] mt-7 rounded-2xl items-center'}
+            textStyle={'text-4xl p-4'}
+            text={'Войти'}
+            style={{
+              color: robotData?.fontColor || '#000',
+              backgroundColor: robotData?.buttonColor || '#1a75d4'
+            }}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    </LinearGradient>
   )
 }
