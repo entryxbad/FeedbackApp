@@ -14,27 +14,25 @@ export const PhoneInput = ({
   const [phone, setPhone] = useState(defaultValue)
 
   const handleChange = (maskedValue, unmaskedValue) => {
-    if (unmaskedValue.length > 0 && unmaskedValue[0] === '8') {
-      setPhone(
-        '+7 ' +
-          unmaskedValue.slice(1, 4) +
-          ' ' +
-          unmaskedValue.slice(4, 7) +
-          '-' +
-          unmaskedValue.slice(7, 9) +
-          '-' +
-          unmaskedValue.slice(9, 11)
-      )
-    } else {
-      setPhone(maskedValue)
+    let formattedValue = unmaskedValue.replace(/\D/g, '')
+
+    if (formattedValue.length > 0) {
+      if (formattedValue[0] === '8') {
+        formattedValue = '+7' + formattedValue.slice(1)
+      } else if (formattedValue[0] !== '7') {
+        formattedValue = '+7' + formattedValue
+      }
     }
+
+    setPhone(formattedValue)
+    return formattedValue
   }
 
   return (
     <>
       <Controller
         control={control}
-        render={({ field: { onChange } }) => (
+        render={({ field: { onChange, value } }) => (
           <MaskInput
             {...rest}
             value={phone}
@@ -42,8 +40,8 @@ export const PhoneInput = ({
             placeholderTextColor={'white'}
             keyboardType='numeric'
             onChangeText={(masked, unmasked) => {
-              handleChange(masked, unmasked)
-              onChange(unmasked)
+              const newValue = handleChange(masked, unmasked)
+              onChange(newValue)
             }}
             mask={[
               '+',
